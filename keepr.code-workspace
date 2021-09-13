@@ -1,4 +1,3 @@
-
 {
   "folders": [
     {
@@ -8,10 +7,6 @@
     {
       "path": "keepr",
       "name": "server"
-    },
-    {
-      "name": "keepr",
-      "path": "."
     }
   ],
   "settings": {

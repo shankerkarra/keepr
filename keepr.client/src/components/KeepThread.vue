@@ -73,7 +73,7 @@ h4{
     padding: 1em;
     margin: 0 0 1.5em;
     width: 100%;
-	-webkit-transition:1s ease all;
+	 -webkit-transition:1s ease all;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
