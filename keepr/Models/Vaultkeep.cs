@@ -9,8 +9,4 @@ namespace keepr.Models
     public Profile Creator { get; set; }
 
   }
-  class KeepsInVault : Vaultkeep
-  {
-    public Keep Keep { get; set; }
-  }
 }

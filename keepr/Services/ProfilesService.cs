@@ -5,14 +5,14 @@ using keepr.Repositories;
 
 namespace keepr.Services
 {
-  public class ProfileService
+  public class ProfilesService
   {
     private readonly ProfilesRepository _prepo;
     private readonly KeepsRepository _krepo;
 
     private readonly VaultsRepository _vrepo;
 
-    public ProfileService(ProfilesRepository prepo, KeepsRepository krepo, VaultsRepository vrepo)
+    public ProfilesService(ProfilesRepository prepo, KeepsRepository krepo, VaultsRepository vrepo)
     {
       _prepo = prepo;
       _krepo = krepo;

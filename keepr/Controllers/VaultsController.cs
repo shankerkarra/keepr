@@ -43,12 +43,12 @@ namespace keepr.Controllers
     }
 
     [HttpGet("/{id}/keeps")]
-    public ActionResult<List<Vaultkeep>> GetKeepsByVaultId(int id)
+    public ActionResult<List<Keep>> GetKeepsByVaultId(int VaultId)
     {
       try
       {
-        List<Vaultkeep> vaultkeep = _vks.GetKeepsByVaultId(id);
-        return Ok(vaultkeep);
+        List<Keep> keeps = _vks.GetKeepsByVaultId(VaultId);
+        return Ok(keeps);
       }
       catch (Exception err)
       {

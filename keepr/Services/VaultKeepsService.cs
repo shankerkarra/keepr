@@ -50,7 +50,7 @@ namespace keepr.Services
       throw new Exception("UnAuthorized");
     }
 
-    internal List<Vaultkeep> GetKeepsByVaultId(int id)
+    internal List<Keep> GetKeepsByVaultId(int id)
     {
       return _vksrepo.GetKeepsByVaultId(id);
 
