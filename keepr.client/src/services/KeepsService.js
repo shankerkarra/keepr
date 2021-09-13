@@ -1,7 +1,7 @@
 import { AppState } from '../AppState'
 import { logger } from '../utils/Logger'
 import { api } from './AxiosService'
-class KeepService {
+class KeepsService {
   async getAll() {
     const res = await api.get('api/keeps')
     logger.log(res.data)
@@ -19,4 +19,4 @@ class KeepService {
   }
 }
 
-export const keepService = new KeepService()
+export const keepsService = new KeepsService()

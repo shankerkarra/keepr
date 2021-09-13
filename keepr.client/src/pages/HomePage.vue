@@ -10,7 +10,7 @@
 import { computed, onMounted } from '@vue/runtime-core'
 import { AppState } from '../AppState'
 import Pop from '../utils/Notifier'
-import { keepsService } from '../services/KeepService'
+import { keepsService } from '../services/KeepsService'
 
 export default {
   name: 'Home',

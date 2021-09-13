@@ -74,7 +74,7 @@
 
 <script>
 import { reactive } from '@vue/reactivity'
-import { keepService } from '../services/KeepService'
+import { keepsService } from '../services/KeepsService'
 import $ from 'jquery'
 import Pop from '../utils/Notifier'
 
@@ -95,7 +95,7 @@ export default {
       state,
       async createkeep() {
         try {
-          await keepService.create(state.newkeep)
+          await keepsService.create(state.newkeep)
           state.newkeep = { creatorId: props.profile.Id }
           $('#review-modal').modal('hide')
         } catch (error) {
