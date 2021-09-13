@@ -59,7 +59,7 @@
 
 <script>
 import { reactive } from '@vue/reactivity'
-import { keepService } from '../services/KeepService'
+import { keepsService } from '../services/KeepsService'
 import $ from 'jquery'
 import Pop from '../utils/Notifier'
 
@@ -81,7 +81,7 @@ export default {
       async destroy() {
         try {
           if (await Pop.confirm('Are you sure you want to Delete?', 'Once Deleted, can be revert back!', 'Warning', 'Ok Delete!')) {
-            await keepService.destroy(props.keep.id)
+            await keepsService.destroy(props.keep.id)
             Pop.toast('Delorted', 'success')
             $('#keepModal').modal('hide')
           }
