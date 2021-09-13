@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using keepr.Models;
 using keepr.Repositories;
 
@@ -47,6 +48,12 @@ namespace keepr.Services
         throw new Exception("UnAuthorized");
       }
       throw new Exception("UnAuthorized");
+    }
+
+    internal List<Vaultkeep> GetKeepsByVaultId(int id)
+    {
+      return _vksrepo.GetKeepsByVaultId(id);
+
     }
 
     internal void Delete(int VaultkeepId, string userId)

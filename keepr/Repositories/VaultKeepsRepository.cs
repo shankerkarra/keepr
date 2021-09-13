@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using Dapper;
@@ -52,5 +53,21 @@ namespace keepr.Repositories
 
     }
 
+
+    public List<Vaultkeep> GetKeepsByVaultId(int VaultId)
+    {
+      string sql = @"
+      SELECT
+       k.*,
+       vk.*
+      FROM keep k
+      JOIN vaultkeep vk on k.id = vk.keepId
+      WHERE vk.vaultid = @VaultId;";
+      return _db.Query<KeepsInVault, Vaultkeep, KeepsInVault>(sql, (keep, vaultkeep) =>
+      {
+        vaultkeep.Keep = keep;
+        return keep;
+      }, new { VaultId }, splitOn: "id").ToList();
+    }
   }
 }
