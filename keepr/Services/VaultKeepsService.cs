@@ -21,6 +21,7 @@ namespace keepr.Services
 
     internal Vaultkeep GetById(int id)
     {
+      //Initial code - without checking the 
       Vaultkeep vkfound = _vksrepo.GetById(id);
       // in vFound check if it is private - remove it
       if (vkfound == null)
@@ -70,7 +71,6 @@ namespace keepr.Services
       {
         throw new Exception("Unauthorized");
       }
-      return _vksrepo.GetKeepsByVaultId(id);
     }
 
     internal void Delete(int VaultkeepId, string userId)

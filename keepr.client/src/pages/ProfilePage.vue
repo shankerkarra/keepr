@@ -30,12 +30,12 @@
 <script>
 import { computed, reactive } from 'vue'
 import { AppState } from '../AppState'
-import { useRoute } from 'vue-router'
+// import { useRoute } from 'vue-router'
 
 export default {
   name: 'Account',
   setup() {
-    const route = useRoute()
+    // const route = useRoute()
     const state = reactive({
       profile: computed(() => AppState.activeProfile),
       keeps: computed(() => AppState.keeps),

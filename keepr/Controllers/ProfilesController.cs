@@ -41,11 +41,11 @@ namespace keepr.Controllers
 
     [HttpGet("{id}")]
     [Authorize]
-    public ActionResult<Profile> GetById(string Id)
+    public ActionResult<Profile> GetById(string id)
     {
       try
       {
-        Profile profile = _ps.GetById(Id);
+        Profile profile = _ps.GetById(id);
         return Ok(profile);
       }
       catch (Exception err)
@@ -56,7 +56,7 @@ namespace keepr.Controllers
 
     [HttpGet("{id}/keeps")]
     [Authorize]
-    public async Task<ActionResult<List<Keep>>> GetKeepsByProfileId(String Id)
+    public async Task<ActionResult<List<Keep>>> GetKeepsByProfileId(String id)
     {
       try
       {
@@ -68,7 +68,7 @@ namespace keepr.Controllers
         }
         else { userSignIn = false; }
         // Need to pass on the userSign & userInfo.id
-        List<Keep> keeps = _ks.GetKeepsByProfileId(Id, userSignIn, userInfo.Id);
+        List<Keep> keeps = _ks.GetKeepsByProfileId(id, userSignIn, userInfo?.Id);
         return Ok(keeps);
       }
       catch (Exception err)
@@ -79,7 +79,7 @@ namespace keepr.Controllers
 
     [HttpGet("{id}/vaults")]
     [Authorize]
-    public async Task<ActionResult<List<Vault>>> GetVaultsByProfileId(String Id)
+    public async Task<ActionResult<List<Vault>>> GetVaultsByProfileId(String id)
     {
       try
       {
@@ -92,7 +92,7 @@ namespace keepr.Controllers
         }
         else { userSignIn = false; }
         // Need to pass on the userSign & userInfo.id
-        List<Vault> Vaults = _vs.GetVaultsByProfileId(Id, userSignIn, userInfo.Id);
+        List<Vault> Vaults = _vs.GetVaultsByProfileId(id, userSignIn, userInfo?.Id);
         return Ok(Vaults);
       }
       catch (Exception err)

@@ -38,8 +38,7 @@ namespace keepr.Repositories
       (name, description, isPrivate, creatorId)
       VALUES
       (@Name, @Description,@isPrivate, @CreatorId);
-      SELECT LAST_INSERT_ID();
-      ";
+      SELECT LAST_INSERT_ID();";
       newVault.Id = _db.ExecuteScalar<int>(sql, newVault);
       return GetById(newVault.Id);
     }
@@ -89,7 +88,7 @@ namespace keepr.Repositories
        v.* 
       FROM vault v
       JOIN accounts a ON a.id = v.creatorId
-      WHERE v.creatorId = @profileId;";
+      WHERE v.creatorId = @id;";
       return _db.Query<Profile, Vault, Vault>(sql, (prof, vault) =>
       {
         vault.Creator = prof;

@@ -26,19 +26,22 @@ namespace keepr.Services
           {
             return vfound;
           }
-          if (vfound.CreatorId != userId)
+          else
+          // if (vfound.CreatorId != userId)
           {
             if (vfound.isPrivate == true)
             {
               throw new Exception("Vault - unauthorized");
             }
-            if (vfound.isPrivate == false)
+            else
+            // if (vfound.isPrivate == false)
             {
               return vfound;
             }
           }
         }
-        if (!userSignIn)
+        else
+        // if (!userSignIn)
         {
           if (vfound.isPrivate == true)
           {
@@ -92,12 +95,12 @@ namespace keepr.Services
       if (id == userId)
       {
         // user vaults
-        List<Vault> vaults = _vrepo.GetPublicVaultsByProfileId(id);
+        List<Vault> vaults = _vrepo.GetPrivateVaultsByProfileId(id);
         return vaults;
       }
       else
       { // non-private vaults
-        List<Vault> vaults = _vrepo.GetPrivateVaultsByProfileId(id);
+        List<Vault> vaults = _vrepo.GetPublicVaultsByProfileId(id);
         return vaults;
       }
     }
