@@ -1,8 +1,8 @@
 import { AppState } from '../AppState'
 import { logger } from '../utils/Logger'
 import { api } from './AxiosService'
-class VaultService {
+class VaultsService {
 
 }
 
-export const vaultService = new VaultService()
+export const vaultsService = new VaultsService()
