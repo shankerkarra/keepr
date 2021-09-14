@@ -60,7 +60,7 @@
 
 <script>
 import { reactive } from '@vue/reactivity'
-import { vaultService } from '../services/VaultsService'
+import { vaultsService } from '../services/VaultsService'
 import $ from 'jquery'
 import Pop from '../utils/Notifier'
 
@@ -82,7 +82,7 @@ export default {
       state,
       async createVault() {
         try {
-          await vaultService.create(state.newVault)
+          await vaultsService.create(state.newVault)
           state.newVault = { creatorId: props.profile.Id, isPrivate: false }
           $('#review-modal').modal('hide')
         } catch (error) {

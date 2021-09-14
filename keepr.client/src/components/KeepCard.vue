@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="top-right">
-      <router-link router-link :to="{ name: 'Account', params: {id: keep.creator.id } }" @click.stop="" class="creator p-3 align-self-end">
+      <router-link router-link :to="{ name: 'Profile', params: {id: keep.creator.id } }" @click.stop="" class="creator p-3 align-self-end">
         <img class="rounded-pill" :src="keep.creator.picture" alt="" srcset="" height="40">
       </router-link>
     </div>
