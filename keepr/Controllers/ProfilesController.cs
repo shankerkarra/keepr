@@ -40,7 +40,7 @@ namespace keepr.Controllers
     }
 
     [HttpGet("{id}")]
-    [Authorize]
+    // [Authorize]
     public ActionResult<Profile> GetById(string id)
     {
       try
@@ -55,7 +55,7 @@ namespace keepr.Controllers
     }
 
     [HttpGet("{id}/keeps")]
-    [Authorize]
+    // [Authorize]
     public async Task<ActionResult<List<Keep>>> GetKeepsByProfileId(String id)
     {
       try
@@ -78,7 +78,7 @@ namespace keepr.Controllers
     }
 
     [HttpGet("{id}/vaults")]
-    [Authorize]
+    // [Authorize]
     public async Task<ActionResult<List<Vault>>> GetVaultsByProfileId(String id)
     {
       try
