@@ -60,9 +60,15 @@ namespace keepr.Controllers
     {
       try
       {
+        bool userSignIn = false;
         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-        // Need to validate the parameter ID to UserInfo.Id
-        List<Keep> keeps = _ks.GetKeepsByProfileId(Id);
+        if (userInfo != null)
+        {
+          userSignIn = true;
+        }
+        else { userSignIn = false; }
+        // Need to pass on the userSign & userInfo.id
+        List<Keep> keeps = _ks.GetKeepsByProfileId(Id, userSignIn, userInfo.Id);
         return Ok(keeps);
       }
       catch (Exception err)
@@ -78,15 +84,20 @@ namespace keepr.Controllers
       try
       {
         // NOTE  Need to look into
+        bool userSignIn = false;
         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-        List<Vault> Vaults = _vs.GetVaultsByProfileId(Id);
+        if (userInfo != null)
+        {
+          userSignIn = true;
+        }
+        else { userSignIn = false; }
+        // Need to pass on the userSign & userInfo.id
+        List<Vault> Vaults = _vs.GetVaultsByProfileId(Id, userSignIn, userInfo.Id);
         return Ok(Vaults);
-
       }
-      catch (Exception)
+      catch (Exception err)
       {
-        throw new Exception();
-        // return BadRequest(err.Message);
+        return BadRequest(err.Message);
       }
     }
   }
