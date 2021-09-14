@@ -40,7 +40,7 @@ namespace keepr.Services
       return _krepo.EditKeepsCount(keep);
     }
 
-    public List<Keep> GetKeepsByProfileId(string profileId)
+    public List<Keep> GetKeepsByProfileId(string profileId, bool userSignIn, string userId)
     {
       List<Keep> keeps = _krepo.GetKeepsByProfileId(profileId);
       return keeps;

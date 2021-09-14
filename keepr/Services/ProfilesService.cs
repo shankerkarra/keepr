@@ -51,11 +51,13 @@ namespace keepr.Services
       List<Keep> keeps = _krepo.GetKeepsByProfileId(ProfileId);
       return keeps;
     }
-    public List<Vault> GetVaultByProfileId(String ProfileId)
-    {
-      List<Vault> vaults = _vrepo.GetVaultsByProfileId(ProfileId);
-      return vaults;
-    }
+
+    // Modified to validate isprivate
+    // public List<Vault> GetVaultByProfileId(String ProfileId)
+    // {
+    //   List<Vault> vaults = _vrepo.GetVaultsByProfileId(ProfileId);
+    //   return vaults;
+    // }
 
     internal Profile Edit(Profile editData, string userEmail)
     {
