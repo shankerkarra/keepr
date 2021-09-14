@@ -60,7 +60,7 @@
 
 <script>
 import { reactive } from '@vue/reactivity'
-import { vaultService } from '../services/VaultService'
+import { vaultService } from '../services/VaultsService'
 import $ from 'jquery'
 import Pop from '../utils/Notifier'
 
