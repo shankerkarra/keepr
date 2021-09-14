@@ -50,8 +50,26 @@ namespace keepr.Services
       throw new Exception("UnAuthorized");
     }
 
-    internal List<VaultKeepViewModel> GetKeepsByVaultId(int id)
+    internal List<VaultKeepViewModel> GetKeepsByVaultId(int id, bool userSignIn, String userId)
     {
+      //Fetch the vault by Id
+      // check is it isPrivate
+      // Check the userId
+      Vault vfound = _vrepo.GetById(id);
+      if (vfound.isPrivate == false)
+      {
+        List<VaultKeepViewModel> vkvm = _vksrepo.GetKeepsByVaultId(id);
+        return vkvm;
+      }
+      else if (vfound.isPrivate == true && vfound.CreatorId == userId)
+      {
+        List<VaultKeepViewModel> vkvm = _vksrepo.GetKeepsByVaultId(id);
+        return vkvm;
+      }
+      else
+      {
+        throw new Exception("Unauthorized");
+      }
       return _vksrepo.GetKeepsByVaultId(id);
     }
 

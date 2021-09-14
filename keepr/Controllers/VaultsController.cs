@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using CodeWorks.Auth0Provider;
 using keepr.Models;
 using keepr.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace keepr.Controllers
@@ -27,13 +26,19 @@ namespace keepr.Controllers
     {
       try
       {
-        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-        Vault vault = _vs.GetById(id);
         // Check User is Null & if VAult is Private
         // if (userInfo !- null)
         // {
-
         // }
+        bool userSignIn = false;
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        if (userInfo != null)
+        {
+          userSignIn = true;
+        }
+        else { userSignIn = false; }
+        // Need to pass on the userSign & userInfo.id
+        Vault vault = _vs.GetById(id, userSignIn, userInfo.Id);
         return Ok(vault);
       }
       catch (Exception err)
@@ -43,11 +48,19 @@ namespace keepr.Controllers
     }
 
     [HttpGet("{id}/keeps")]
-    public ActionResult<List<VaultKeepViewModel>> GetKeepsByVaultId(int id)
+    public async Task<ActionResult<VaultKeepViewModel>> GetKeepsByVaultId(int id)
     {
       try
       {
-        List<VaultKeepViewModel> vkvm = _vks.GetKeepsByVaultId(id);
+        bool userSignIn = false;
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        if (userInfo != null)
+        {
+          userSignIn = true;
+        }
+        else { userSignIn = false; }
+        // Need to pass on the userSign & userInfo.id
+        List<VaultKeepViewModel> vkvm = _vks.GetKeepsByVaultId(id, userSignIn, userInfo.Id);
         return Ok(vkvm);
       }
       catch (Exception err)
@@ -55,57 +68,5 @@ namespace keepr.Controllers
         return BadRequest(err.Message);
       }
     }
-
-    [HttpPost]
-    [Authorize]
-    public async Task<ActionResult<Vault>> Create([FromBody] Vault newVault)
-    {
-      try
-      {
-        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-        newVault.CreatorId = userInfo.Id;
-        Vault vault = _vs.Create(newVault);
-        return Ok(vault);
-      }
-      catch (Exception err)
-      {
-        return BadRequest(err.Message);
-      }
-    }
-
-    [HttpPut("{id}")]
-    [Authorize]
-    public async Task<ActionResult<Vault>> Edit([FromBody] Vault updatedVault, int id)
-    {
-      try
-      {
-        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-        updatedVault.CreatorId = userInfo.Id;
-        updatedVault.Id = id;
-        Vault vault = _vs.Edit(updatedVault);
-        return Ok(vault);
-      }
-      catch (Exception err)
-      {
-        return BadRequest(err.Message);
-      }
-    }
-
-    [HttpDelete("{id}")]
-    [Authorize]
-    public async Task<ActionResult<String>> Delete(int id)
-    {
-      try
-      {
-        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-        _vs.Delete(id, userInfo.Id);
-        return Ok("DELETED");
-      }
-      catch (Exception err)
-      {
-        return BadRequest(err.Message);
-      }
-    }
-
   }
 }

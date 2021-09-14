@@ -1,6 +1,6 @@
 <template>
-  <div class="card cover-img px-1 bg-black text-white" style="width: 18rem;" data-toggle="modal" :data-target="'#keep-modal-'+keep.id">
-    <img class="cover-img" :src="keep.img" alt="Card image opache">
+  <div class="card img-fluid m-1 px-1 py-1 bg-black text-white rounded" style="width: 19rem;" data-toggle="modal" :data-target="'#keep-modal-'+keep.id">
+    <img class="cover-img" :src="keep.img" alt="Card image">
     <div class="card-img-overlay">
       <div class="bottom-left">
         <h4 class="py-2 px-3">
@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="top-right">
-      <router-link router-link :to="{ name: 'Profile', params: {id: keep.creator.id } }" @click.stop="" class="creator p-3 align-self-end">
+      <router-link router-link :to="{ name: 'Account', params: {id: keep.creator.id } }" @click.stop="" class="creator p-3 align-self-end">
         <img class="rounded-pill" :src="keep.creator.picture" alt="" srcset="" height="40">
       </router-link>
     </div>
@@ -40,7 +40,7 @@ export default {
 .cover-img {
   height: 200px;
   width: 250px;
-  object-fit: cover;
+  object-fit:cover;
   width:100%;
 }
 a {
@@ -85,11 +85,4 @@ a {
   right: 16px;
 }
 
-/* Centered text */
-// .centered {
-//   position: absolute;
-//   top: 50%;
-//   left: 50%;
-//   transform: translate(-50%, -50%);
-// }
 </style>

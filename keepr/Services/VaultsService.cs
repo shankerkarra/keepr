@@ -14,15 +14,43 @@ namespace keepr.Services
       _vrepo = vrepo;
     }
 
-    internal Vault GetById(int id)
+    public Vault GetById(int id, bool userSignIn, string userId)
     {
       Vault vfound = _vrepo.GetById(id);
       // in vFound check if it is private - remove it
-      if (vfound == null)
+      if (vfound != null)
       {
-        throw new Exception("Invalid Id");
+        if (userSignIn)
+        {
+          if (vfound.CreatorId == userId)
+          {
+            return vfound;
+          }
+          if (vfound.CreatorId != userId)
+          {
+            if (vfound.isPrivate == true)
+            {
+              throw new Exception("Vault - unauthorized");
+            }
+            if (vfound.isPrivate == false)
+            {
+              return vfound;
+            }
+          }
+        }
+        if (!userSignIn)
+        {
+          if (vfound.isPrivate == true)
+          {
+            throw new Exception("Cannot access - unauthorized");
+          }
+          else
+          {
+            return vfound;
+          }
+        }
       }
-      return vfound;
+      else { throw new Exception(" Vault not found"); }
     }
 
     internal Vault Create(Vault newVault)
@@ -32,7 +60,7 @@ namespace keepr.Services
 
     internal Vault Edit(Vault updatedVault)
     {
-      Vault original = GetById(updatedVault.Id);
+      Vault original = _vrepo.GetById(updatedVault.Id);
       if (original.CreatorId != updatedVault.CreatorId)
       {
         throw new Exception("You are not the Creator!");
@@ -51,7 +79,7 @@ namespace keepr.Services
 
     internal void Delete(int VaultId, string userId)
     {
-      Vault vtoDelete = GetById(VaultId);
+      Vault vtoDelete = _vrepo.GetById(VaultId);
       if (vtoDelete.CreatorId != userId)
       {
         throw new Exception("Thats not your Keep");
@@ -59,10 +87,19 @@ namespace keepr.Services
       _vrepo.Delete(VaultId);
     }
 
-    internal List<Vault> GetVaultsByProfileId(string id)
+    internal List<Vault> GetVaultsByProfileId(string id, bool userSignIn, string userId)
     {
-      List<Vault> vaults = _vrepo.GetVaultsByProfileId(id);
-      return vaults;
+      if (id == userId)
+      {
+        // user vaults
+        List<Vault> vaults = _vrepo.GetPublicVaultsByProfileId(id);
+        return vaults;
+      }
+      else
+      { // non-private vaults
+        List<Vault> vaults = _vrepo.GetPrivateVaultsByProfileId(id);
+        return vaults;
+      }
     }
   }
 }

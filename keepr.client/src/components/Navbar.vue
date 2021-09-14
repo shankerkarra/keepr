@@ -27,18 +27,18 @@
             Home
           </router-link>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <router-link :to="{ name: 'About' }" class="nav-link">
             About
           </router-link>
-        </li>
+        </li> -->
       </ul>
-&nbsp;&nbsp;
-      <div class="form-group">
+
+      <div class="form-group m-2">
         <input type="text"
                class="form-control"
                aria-describedby="Search"
-               placeholder="Search...."
+               placeholder="Search WIP ...."
         >
       </div>
 &nbsp;&nbsp;&nbsp;&nbsp;

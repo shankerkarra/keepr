@@ -64,7 +64,24 @@ namespace keepr.Repositories
 
     }
 
-    public List<Vault> GetVaultsByProfileId(string profileId)
+    internal List<Vault> GetPublicVaultsByProfileId(string profileId)
+    {
+      string sql = @"
+      SELECT
+       a.*,
+       v.* 
+      FROM vault v
+      JOIN accounts a ON a.id = v.creatorId
+      WHERE v.creatorId = @profileId
+      AND v.isPrivate = false;";
+      return _db.Query<Profile, Vault, Vault>(sql, (prof, vault) =>
+      {
+        vault.Creator = prof;
+        return vault;
+      }, new { profileId }, splitOn: "id").ToList();
+    }
+
+    internal List<Vault> GetPrivateVaultsByProfileId(string id)
     {
       string sql = @"
       SELECT
@@ -77,8 +94,7 @@ namespace keepr.Repositories
       {
         vault.Creator = prof;
         return vault;
-      }, new { profileId }, splitOn: "id").ToList();
+      }, new { id }, splitOn: "id").ToList();
     }
-
   }
 }
