@@ -26,8 +26,7 @@ namespace keepr.Services
           {
             return vfound;
           }
-          // if (vfound.CreatorId != userId)
-          else
+          if (vfound.CreatorId != userId)
           {
             if (vfound.isPrivate == true)
             {
@@ -39,21 +38,19 @@ namespace keepr.Services
             }
           }
         }
-        else
-        // if (!userSignIn)
-        if (vfound.isPrivate == true)
+        if (!userSignIn)
         {
-          throw new Exception("Cannot access - unauthorized");
-        }
-        else
-        {
-          return vfound;
+          if (vfound.isPrivate == true)
+          {
+            throw new Exception("Cannot access - unauthorized");
+          }
+          else
+          {
+            return vfound;
+          }
         }
       }
-      else
-      {
-        throw new Exception(" Vault not found");
-      }
+      else { throw new Exception(" Vault not found"); }
     }
 
     internal Vault Create(Vault newVault)
