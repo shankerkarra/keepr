@@ -1,20 +1,14 @@
 <template>
-  <div class="card  img-fluid m-1 px-1 py-1 text-white" style="width: 19rem;" data-toggle="modal" :data-target="'#keep-modal-'+keep.id">
+  <div class="card img-fluid m-1 px-1 py-1 bg-black text-white" style="width: 19rem;">
     <img class="cover-img" :src="keep.img" alt="Card image">
     <div class="card-img-overlay">
       <div class="bottom-left">
-        <h4 class="py-1 px-2">
+        <h4 class="py-2 px-3">
           {{ keep.name }}
         </h4>
       </div>
     </div>
-    <div class="bottom-right py-2 justify-content-right">
-      <router-link router-link :to="{ name: 'Profile', params: {id: keep.creator.id } }" @click.stop="" class="creator p-3 align-self-end">
-        <img class="rounded-pill" :src="keep.creator.picture" alt="" srcset="" height="40">
-      </router-link>
-    </div>
   </div>
-  <KeepModal v-if="keep.id" :keep="keep" />
 </template>
 
 <script>
@@ -54,10 +48,11 @@ a {
 .creator{
   height: 3em;
 }
+
 .container {
   position: relative;
   text-align: center;
-   color: white;
+  color: white;
 }
 
 /* Bottom left text */
@@ -85,7 +80,7 @@ a {
 .bottom-right {
   position: absolute;
   bottom: 1px;
-  right: 0px;
+  right: 1px;
 }
 
 </style>

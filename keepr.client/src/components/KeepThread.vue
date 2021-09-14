@@ -20,22 +20,10 @@ export default {
 
 <style lang="scss" scoped>
 
- /* Masonry container */
-.masonry {
-    -webkit-column-count: 4;
-    -moz-column-count:4;
-    column-count: 4;
-    -webkit-column-gap: 1em;
-    -moz-column-gap: 1em;
-    column-gap: 1em;
-    margin: 1.5em;
-    padding: 1;
-}
-
 body {
   font-family: sans-serif;
    margin: 0;
-   background: #f2f2f2;
+  //  background: #f2f2f2;
 }
 
 h1 {
@@ -52,7 +40,6 @@ h4{
   text-align:center;
   line-height:80px;
   font-weight:normal;
-
 }
 
 .masonry { /* Masonry container */
@@ -81,7 +68,7 @@ h4{
     -webkit-box-sizing: border-box;
     box-shadow: 2px 2px 4px 0 #ccc;
 }
-.item img{max-width:100%; height: auto;}
+.item-img{max-width:100%; height: auto;}
 
 @media only screen and (max-width: 320px) {
     .masonry {

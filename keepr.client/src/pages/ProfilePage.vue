@@ -7,19 +7,19 @@
       <div class="Col">
         <h1>{{ account.name }}</h1>
         <h5>Vaults:{{ state.vaults }}</h5>
-        <h5>Keeps: {{ state.keeps }}</h5>
+        <h5>Keeps: {{ state.keeps.toLength }}</h5>
       </div>
     </div>
     <div div class="row m-2">
       <h2>Vaults:</h2>
       <!-- Add Mdi + button -->
-      <Vault v-for="vault in state.vaults" :key="vault.id" :vault="vault" />
+      <!-- <ProfileVault v-for="vault in state.vaults" :key="vault.id" :vault="vault" /> -->
       <!--  vaults v-for-->
     </div>
     <div div class="row m-2">
       <h2>Keeps:</h2>
       <!-- Add Mdi + button -->
-      <Keep v-for="keep in state.keeps" :key="keep.id" :keep="keep" />
+      <ProfileKeep v-for="keep in state.keeps" :key="keep.id" :keep="keep" />
       >
     </div>
     <CreateNewVaultModal.vue />

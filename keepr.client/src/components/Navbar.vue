@@ -2,11 +2,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
-        <img
-          alt="logo"
-          src="../assets/img/keepr.jpg"
-          height="45"
-        />
+        <h1><span class="iconify" data-icon="mdi:alpha-k-box-outline"></span></h1>
       </div>
     </router-link>
     <button
@@ -27,11 +23,6 @@
             Home
           </router-link>
         </li>
-        <!-- <li class="nav-item">
-          <router-link :to="{ name: 'About' }" class="nav-link">
-            About
-          </router-link>
-        </li> -->
       </ul>
 
       <div class="form-group m-2">

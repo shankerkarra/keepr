@@ -7,22 +7,22 @@
        aria-labelledby="modelKeepId"
        aria-hidden="true"
   >
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg customClass" role="document">
       <div class="modal-content">
-        <div class="modal-body">
-          <div class="container">
-            <div class="row">
-              <div class="col-12">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
+        <div class="modal-body container">
+          <div class="row">
+            <div class="col-12">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
-            <div class="row">
-              <div class="col-12 col-md d-flex align-items-center justify-content-left">
-                <img class="cover-img" :src="keep.img" alt="Card image">
-              </div>
-              <!-- <div class="row justify-align-content">
+          </div>
+          <div class="row">
+            <div class="col-6 col-md-4 col-md-push-8 justify-content-left p-0 !important;">
+              <img class="cover-img" :src="keep.img" alt="Card image">
+            </div>
+            <div class="col-6col-md-8 col-md-pull-4 p-0">
+              <div class="row justify-align-content">
                 <div class="col-12 d-flex justify-content-start">
                   &nbsp;
                   <h6><span class="iconify m-1" data-icon="mdi:eye"></span></h6>
@@ -35,93 +35,33 @@
                   &nbsp;<p> {{ keep.shares }}</p>
                   &nbsp;
                 </div>
-              </div> -->
-              <div class="col-12 col-md-4 m-2 position-relative">
-                <div class="row justify-align-content">
-                  <div class="col-12 d-flex justify-content-start">
-                  &nbsp;
-                    <h6><span class="iconify m-1" data-icon="mdi:eye"></span></h6>
-                    &nbsp;<p> {{ keep.keeps }}</p>
-                  &nbsp;
-                    <h6><span class="iconify m-1" data-icon="mdi:alpha-k-box-outline"></span></h6>
-                    &nbsp;<p> {{ keep.views }}</p>
-                  &nbsp;
-                    <h6><span class="iconify m-1" data-icon="mdi:share-variant-outline"></span></h6>
-                    &nbsp;<p> {{ keep.shares }}</p>
-                  &nbsp;
-                  </div>
+              </div>
+              <div class="row justify-content-between">
+                <div class="col-12 m-1 justify-align-text">
+                  <h6 class="modal-title">
+                    {{ keep.name }}
+                  </h6>
                 </div>
-                <!--     <div class="row justify-content-between">
-              <div class="col-12 justify-content-right">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                </div> -->
-                <!-- <div class="row justify-align-content">
-                  <div class="col-3 d-flex justify-content-start">
-                    <h6><span class="iconify m-1" data-icon="mdi:eye"></span></h6>
-                   &nbsp;<p> {{ keep.keeps }}</p>
-                  </div>
-                  <div class="col-3  d-flex justify-content-center">
-                    <h6><span class="iconify m-1" data-icon="mdi:alpha-k-box-outline"></span></h6>
-                    &nbsp;<p> {{ keep.views }}</p>
-                  </div>
-                  <div class="col-3 d-flex justify-content-end">
-                    <h6><span class="iconify m-1" data-icon="mdi:share-variant-outline"></span></h6>
-                    &nbsp;<p> {{ keep.shares }}</p>
-                  </div>
-                </div> -->
-                <div class="row justify-content-between">
-                  <div class="col-12 m-1 justify-align-text">
-                    <h6 class="modal-title">
-                      {{ keep.name }}
-                    </h6>
-                  </div>
-                  <div class="col-12 m-1 justify-content-left">
-                    <h6 class="modal-description">
-                      {{ keep.description }}
-                    </h6>
-                  </div>
+                <div class="col-12 m-1 justify-content-left">
+                  <h6 class="modal-description">
+                    {{ keep.description }}
+                  </h6>
                 </div>
-                <div class="emptyspace"></div>
-
-                <div class="col-12 col-md-4 m-2 position-relative">
-                  <div class="row justify-align-content">
-                    <div class="col-12 d-flex justify-content-start">
-                  &nbsp;
-                      <h5> Add to Vault</h5>
-                      &nbsp;
-                  &nbsp;
-                      <h5 class="pt-3 hoverable" @click="destory()">
-                        🗑
-                      </h5>
-                      <!-- <h6><span class="iconify m-1" data-icon="mdi:alpha-k-box-outline"></span></h6> -->
-                      &nbsp;
-                      <!-- <p> {{ keep.views }}</p> -->
-                  &nbsp;
-                      <h6 class="user" style="justify-self: end;">
-                        <img class="rounded-pill" :src="keep.creator.picture" alt="" srcset="" height="40"> {{ keep.creator.name }}
-                      </h6>
-                      &nbsp;
-                  &nbsp;
-                    </div>
+              </div>
+              <div class="emptyspace"></div>
+              <div class="row justify-align-content">
+                <div class="col-3 justify-content-start">
+                  <h5>Add to Vault</h5>
+                </div>
+                <div class="col-1 justify-content-center">
+                  <h5 class="pt-3 hoverable" @click="destory()">
+                    🗑
+                  </h5>
+                </div>
+                <div class="col-8 text-center">
+                  <div class="bottom-right">
+                    <img class="rounded-pill" :src="keep.creator.picture" alt="" srcset="" height="40"> {{ keep.creator.name }}
                   </div>
-                <!-- <div class="row justify-align-content">
-                  <div class="col-4 d-flex justify-content-start">
-                    <h5> Add to Vault</h5>
-                  </div>
-                  <div class="col-2  d-flex justify-content-center">
-                    <h5 class="pt-3 hoverable" @click="destory()">
-                      🗑
-                    </h5>
-                  </div>
-                  <div class="col-6 d-flex justify-content-end">
-                    <div class="bottom-right">
-                      <img class="rounded-pill" :src="keep.creator.picture" alt="" srcset="" height="40"> {{ keep.creator.name }}
-                    </div>
-                  </div>
-                </div> -->
                 </div>
               </div>
             </div>
@@ -172,21 +112,26 @@ export default {
 
 <style lang="scss" scoped>
 .customClass{
-  width:600px;
-  height:600px;// custom width
+  // width: 400px;
+  // height:400px;// custom width
 }
 .emptyspace{
   min-height: 15vh;
 }
 .cover-img {
   object-fit:cover;
-  width: 80%;
-  max-height: 45vh;
+  width: 100%;
+  width: 100%;
+  // max-height: 45vh;
  }
  /* Bottom right text */
 .bottom-right {
-  position: absolute;
+  // position: absolute;
   bottom: 1px;
-  right: 1px;
+  // right: 3px;
 }
+ .modal-dialog{
+   min-width: 320px;
+ }
+
 </style>
