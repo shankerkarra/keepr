@@ -71,7 +71,11 @@ namespace keepr.Services
         _krepo.EditKeepsCount(keep);
         // return Ok("Deleted");
       }
-      throw new Exception("Thats not your Keep");
+      else
+      {
+        throw new Exception("Thats not your Keep");
+      }
+
     }
   }
 }

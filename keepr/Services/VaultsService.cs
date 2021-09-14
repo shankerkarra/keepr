@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using keepr.Models;
 using keepr.Repositories;
 
@@ -29,14 +30,6 @@ namespace keepr.Services
       return _vrepo.Create(newVault);
     }
 
-    // public Vault GetVaultsByProfileId(string profileId)
-    // {
-    //   // NOTE Need to look into
-    //   // List<Vault> vault =
-    //   // return _vrepo.GetVaultsByProfileId(profileId);
-    //   // return vault;
-    //   throw new Exception();
-    // }
     internal Vault Edit(Vault updatedVault)
     {
       Vault original = GetById(updatedVault.Id);
@@ -64,6 +57,12 @@ namespace keepr.Services
         throw new Exception("Thats not your Keep");
       }
       _vrepo.Delete(VaultId);
+    }
+
+    internal List<Vault> GetVaultsByProfileId(string id)
+    {
+      List<Vault> vaults = _vrepo.GetVaultsByProfileId(id);
+      return vaults;
     }
   }
 }

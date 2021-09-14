@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace keepr.Controllers
 {
   [ApiController]
-  [Route("api/controller")]
+  [Route("api/[controller]")]
   public class ProfilesController : ControllerBase
   {
     private readonly ProfilesService _ps;
@@ -70,24 +70,24 @@ namespace keepr.Controllers
         return BadRequest(err.Message);
       }
     }
-    // [HttpGet("{id}/vaults")]
-    // [Authorize]
-    // public Task<ActionResult<List<Vault>>> GetVaultsByProfileId(String Id)
-    // {
-    //   try
-    //   {
-    //     // NOTE  Need to look into
-    //     // Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-    //     // List<Vault> Vaults = _vs.GetVaultsByProfileId(Id);
-    //     // // return Ok(Vault);
-    //     // return ;
-    //     throw new Exception();
-    //   }
-    //   catch (Exception)
-    //   {
-    //     throw new Exception();
-    //     // return BadRequest(err.Message);
-    //   }
-    // }
+
+    [HttpGet("{id}/vaults")]
+    [Authorize]
+    public async Task<ActionResult<List<Vault>>> GetVaultsByProfileId(String Id)
+    {
+      try
+      {
+        // NOTE  Need to look into
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        List<Vault> Vaults = _vs.GetVaultsByProfileId(Id);
+        return Ok(Vaults);
+
+      }
+      catch (Exception)
+      {
+        throw new Exception();
+        // return BadRequest(err.Message);
+      }
+    }
   }
 }
