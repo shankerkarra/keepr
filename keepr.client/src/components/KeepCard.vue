@@ -1,5 +1,5 @@
 <template>
-  <div class="card img-fluid m-1 px-1 py-1 bg-black text-white rounded" style="width: 19rem;" data-toggle="modal" :data-target="'#keep-modal-'+keep.id">
+  <div class="card img-fluid m-1 px-1 py-1 bg-black text-white" style="width: 19rem;" data-toggle="modal" :data-target="'#keep-modal-'+keep.id">
     <img class="cover-img" :src="keep.img" alt="Card image">
     <div class="card-img-overlay">
       <div class="bottom-left">
@@ -8,7 +8,7 @@
         </h4>
       </div>
     </div>
-    <div class="top-right">
+    <div class="bottom-right py-2 justify-content-right">
       <router-link router-link :to="{ name: 'Profile', params: {id: keep.creator.id } }" @click.stop="" class="creator p-3 align-self-end">
         <img class="rounded-pill" :src="keep.creator.picture" alt="" srcset="" height="40">
       </router-link>
@@ -47,6 +47,10 @@ a {
   color: inherit;
   text-decoration: inherit;
 }
+.cardopacity {
+  background-color: rgba(245, 245, 245, 1);
+  opacity: .4;
+}
 .creator{
   height: 3em;
 }
@@ -60,8 +64,8 @@ a {
 /* Bottom left text */
 .bottom-left {
   position: absolute;
-  bottom: 8px;
-  left: 16px;
+  bottom: 2px;
+  left: 2px;
 }
 
 /* Top left text */
@@ -81,8 +85,8 @@ a {
 /* Bottom right text */
 .bottom-right {
   position: absolute;
-  bottom: 8px;
-  right: 16px;
+  bottom: 1px;
+  right: 1px;
 }
 
 </style>

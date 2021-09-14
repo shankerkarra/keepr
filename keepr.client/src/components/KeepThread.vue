@@ -1,6 +1,8 @@
 <template>
-  <div class="row masonry">
-    <KeepCard v-for="k in keeps" :key="k.id" :keep="k" />
+  <div class="container-fluid">
+    <div class="row masonry">
+      <KeepCard v-for="k in keeps" :key="k.id" :keep="k" />
+    </div>
   </div>
 </template>
 
@@ -54,7 +56,7 @@ h4{
 }
 
 .masonry { /* Masonry container */
-    -webkit-column-count: 4;
+   -webkit-column-count: 4;
   -moz-column-count:4;
   column-count: 4;
   -webkit-column-gap: 1em;
