@@ -4,7 +4,6 @@
       {{ vault.name }}
     </h4>
   </div>
-  <!-- <KeepModal v-if="keep.id" :keep="keep" /> -->
 </template>
 
 <script>

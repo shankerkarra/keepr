@@ -75,11 +75,6 @@ namespace keepr.Services
       return original;
     }
 
-    // internal Vault GetById(int VaultId, string userId)
-    // {
-    //   throw new NotImplementedException();
-    // }
-
     internal void Delete(int VaultId, string userId)
     {
       Vault vtoDelete = _vrepo.GetById(VaultId);

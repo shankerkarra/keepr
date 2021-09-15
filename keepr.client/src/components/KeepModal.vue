@@ -50,15 +50,19 @@
               </div>
               <div class="emptyspace"></div>
               <div class="row m-1 justify-align-left">
-                <div class="col-3 justify-content-start hoverable">
-                  <h5>Add to Vault</h5>
+                <div class="col-4 justify-content-start hoverable">
+                  <h5 class="pt-2 hoverable">
+                    Add to Vault
+                    <!--  @click="AddtoVault(keep.Id)" -->
+                  </h5>
+                  <!-- DO we need to populate for user selection of Valut? -->
                 </div>
-                <div class="col-1 justify-content-center">
-                  <h5 class="pt-2 hoverable" @click="destory()">
+                <div class="col-2 justify-content-center">
+                  <h5 class="pt-2 hoverable" @change="destroy($event.target.value)">
                     🗑
                   </h5>
                 </div>
-                <div class="col-8 text-right">
+                <div class="col-6 text-right">
                   <div class="bottom-right">
                     <img class="rounded-pill" :src="keep.creator.picture" alt="" srcset="" height="40"> {{ keep.creator.name }}
                   </div>
@@ -74,9 +78,12 @@
 
 <script>
 import { reactive } from '@vue/reactivity'
+import { computed } from '@vue/runtime-core'
+import { AppState } from '../AppState'
 import { keepsService } from '../services/KeepsService'
 import $ from 'jquery'
 import Pop from '../utils/Notifier'
+import { vaultsService } from '../services/VaultsService'
 
 export default {
   props: {
@@ -89,7 +96,11 @@ export default {
     const state = reactive({
       newkeep: {
         keepId: props.keep.id
-      }
+      },
+      activeKeep: computed(() => AppState.activeKeep),
+      account: computed(() => AppState.account),
+      myVaults: computed(() => AppState.vaults),
+      newVaultKeep: {}
     })
     return {
       state,
@@ -103,8 +114,21 @@ export default {
         } catch (error) {
           Pop.toast(error, 'error')
         }
-      }
+      },
       // Need to add to VAult
+      async AddtoVault(vault) {
+        try {
+          state.newVaultkeep = {}
+          state.newVaultKeep.keepId = state.activeKeep.id
+          state.newVaultKeep.VaultId = vault
+          if (state.newVaultKeep.VaultId) {
+            await keepsService.AddtoVault(state.newVaultKeep)
+          }
+          $('#keepModal').modal('hide')
+        } catch (error) {
+          Pop.toast(error, 'error')
+        }
+      }
     }
   }
 }
