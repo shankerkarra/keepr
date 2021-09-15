@@ -21,7 +21,8 @@ namespace keepr.Controllers
     }
 
     [HttpGet]
-    public ActionResult<List<Keep>> GetAll()
+    // renamed from GetAll to Get on 9/15 @ 9:36AM
+    public ActionResult<List<Keep>> Get()
     {
       try
       {

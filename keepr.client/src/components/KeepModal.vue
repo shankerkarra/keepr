@@ -23,9 +23,8 @@
             </div>
             <div class="col-6col-md-8 col-md-pull-4 p-0">
               <div class="row justify-align-content">
-                <div class="col-12 m-1 d-flex justify-content-center">
-                  &nbsp;
-                  <h6><span class="iconify p-3 m-1" data-icon="mdi:eye"></span></h6>
+                <div class="col-12 p-1 m-1 d-flex justify-content-center">
+                  <h6><span class="iconify m-1" data-icon="mdi:eye"></span></h6>
                   &nbsp;<p> {{ keep.keeps }}</p>
                   &nbsp;
                   <h6><span class="iconify m-1" data-icon="mdi:alpha-k-box-outline"></span></h6>
@@ -40,6 +39,7 @@
                 <div class="col-12 m-1 justify-align-text">
                   <h6 class="modal-title">
                     {{ keep.name }}
+                    {{ state.myVaults }}
                   </h6>
                 </div>
                 <div class="col-12 m-1 justify-content-left">
@@ -50,32 +50,35 @@
               </div>
               <div class="emptyspace"></div>
               <div class="row m-1 justify-align-left">
-                <div class="col-4 justify-content-start hoverable">
-                  <h5 class="pt-2 hoverable">
-                    Add to Vault
-                    <!-- DO we need to populate for user selection of Valut? -->
-                    <!--  @click="AddtoVault(keep.Id)" -->
-                    <form>
-                      <select title="Add to Vault" @change="addToVault($event.target.value)" class="btn btn-primary">
-                        <option value="" selected disabled hidden>
-                          Add to Vault
-                        </option>
-                        <option v-for="vault in state.myVaults" :value="vault.id" :key="vault.id">
-                          {{ vault.name }}
-                        </option>
-                      </select>
-                    </form>
-                  </h5>
-                </div>
-                <div class="col-2 justify-content-center">
-                  <h5 class="pt-2 hoverable" @change="destroy($event.target.value)">
-                    🗑
-                  </h5>
-                </div>
-                <div class="col-6 text-right">
-                  <div class="bottom-right">
-                    <img class="rounded-pill" :src="keep.creator.picture" alt="" srcset="" height="40"> {{ keep.creator.name }}
-                  </div>
+                <span v-if="state.user">
+                  <div class="col-4 justify-content-start hoverable" v-if="state.user.isAuthenticated && state.account.id == keep.creatorId">
+                    <div class="userdisplay">
+                      <h5 class="pt-2 hoverable">
+                        <!-- Add to Vault -->
+                        <!-- DO we need to populate for user selection of Valut? -->
+                        <!--  @click="AddtoVault(keep.Id)" -->
+                        <form>
+                          <select title="Add to Vault" @change.prevent="addToVault($event.target.value)" class="btn btn-primary">
+                            <option value="" selected disabled hidden>
+                              Add to Vault
+                            </option>
+                            <option v-for="vault in state.myVaults" :value="vault.id" :key="vault.id">
+                              {{ vault.name }}
+                            </option>
+                          </select>
+                        </form>
+                      </h5>
+                    </div>
+                    <div class="col-2 justify-content-center">
+                      <h5 class="pt-2 hoverable" @click="destroy($event.target.value)">
+                        🗑
+                      </h5>
+                    </div>
+                  </div></span>
+              </div>
+              <div class="col-6 text-right">
+                <div class="bottom-right">
+                  <img class="rounded-pill" :src="keep.creator.picture" alt="" srcset="" height="40"> {{ keep.creator.name }}
                 </div>
               </div>
             </div>
@@ -108,16 +111,17 @@ export default {
     const loading = ref(true)
     onMounted(async() => {
       try {
-        await profilesService.GetVaultsByProfileId(AppState.account.Id)
+        await profilesService.GetVaultsByProfileId(AppState.account?.Id)
         loading.value = false
       } catch (error) {
-        Pop.Toast(error, 'error')
+        Pop.toast(error, 'error')
       }
     })
     const state = reactive({
       newkeep: {
         keepId: props.keep.id
       },
+      user: computed(() => AppState.user),
       activeKeep: computed(() => AppState.activeKeep),
       account: computed(() => AppState.account),
       myVaults: computed(() => AppState.vaults),
@@ -128,8 +132,8 @@ export default {
       state,
       async destroy() {
         try {
-          if (await Pop.confirm('Are you sure you want to Delete?', 'Once Deleted, can be revert back!', 'Warning', 'Ok Delete!')) {
-            await keepsService.destroy(props.keep.id)
+          if (await Pop.confirm('Are you sure you want to Delete?', 'Once Deleted, can be revert back!', 'warning', 'Ok Delete!')) {
+            await keepsService.delete(props.keep.id)
             Pop.toast('Delorted', 'success')
             $('#keepModal').modal('hide')
           }

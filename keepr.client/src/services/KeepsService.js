@@ -4,7 +4,6 @@ import { api } from './AxiosService'
 class KeepsService {
   async getAll() {
     const res = await api.get('api/keeps')
-    logger.log(res.data)
     AppState.keeps = res.data
   }
 

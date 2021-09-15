@@ -13,6 +13,10 @@ export default {
     keeps: {
       type: Object,
       required: true
+    },
+    account: {
+      type: Object,
+      required: true
     }
   }
 }

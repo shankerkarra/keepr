@@ -13,18 +13,18 @@ CREATE TABLE IF NOT EXISTS profile(
   picture varchar(255) COMMENT 'User Picture'
 ) default charset utf8 COMMENT '';
 CREATE TABLE IF NOT EXISTS keep(
-  id INT NOT NULL primary key COMMENT 'primary key',
+  id INT NOT NULL AUTO_INCREMENT primary key COMMENT 'primary key',
   name varchar(255) COMMENT 'Name',
   description varchar(255) COMMENT 'Description',
   img varchar(255) COMMENT 'Picture',
-  views INT NOT NULL default 0 COMMENT 'No of Views',
-  shares INT NOT NULL default 0 COMMENT 'No of Views',
-  keeps INT NOT NULL default 0 COMMENT 'No of Views',
+  views INT default 0 COMMENT 'No of Views',
+  shares INT default 0 COMMENT 'No of Views',
+  keeps INT default 0 COMMENT 'No of Views',
   creatorId VARCHAR(255) NOT NULL comment 'Creator Id',
   FOREIGN KEY (creatorId) REFERENCES accounts(id)
 ) default charset utf8 COMMENT '';
 CREATE TABLE IF NOT EXISTS vault(
-  id INT NOT NULL primary key COMMENT 'primary key',
+  id INT NOT NULL AUTO_INCREMENT primary key COMMENT 'primary key',
   name varchar(255) COMMENT 'Name',
   description varchar(255) COMMENT 'Description',
   img varchar(255) COMMENT 'Picture',
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS vault(
   FOREIGN KEY (creatorId) REFERENCES accounts(id)
 ) default charset utf8 COMMENT '';
 CREATE TABLE IF NOT EXISTS vaultkeep(
-  id INT NOT NULL primary key COMMENT 'primary key',
+  id INT NOT NULL AUTO_INCREMENT primary key COMMENT 'primary key',
   creatorId VARCHAR(255) NOT NULL comment 'Creator Id',
   vaultId INT NOT NULL comment 'vault Id',
   keepId INT NOT NULL comment 'keepId',

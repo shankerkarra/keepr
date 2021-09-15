@@ -1,7 +1,7 @@
 <template>
   <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
     <div class="row">
-      <KeepThread :keeps="keeps" />
+      <KeepThread :keeps="keeps" :account="account" />
     </div>
   </div>
 </template>
@@ -19,11 +19,12 @@ export default {
       try {
         await keepsService.getAll()
       } catch (error) {
-        Pop.Toast(error, 'error')
+        Pop.toast(error, 'error')
       }
     })
     return {
-      keeps: computed(() => AppState.keeps)
+      keeps: computed(() => AppState.keeps),
+      account: computed(() => AppState.account)
     }
   }
 }
