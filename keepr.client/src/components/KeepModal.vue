@@ -19,13 +19,13 @@
           </div>
           <div class="row">
             <div class="col-6 col-md-4 col-md-push-8 justify-content-left p-0 !important;">
-              <img class="cover-img" :src="keep.img" alt="Card image">
+              <img class="cover-img m-1" :src="keep.img" alt="Card image">
             </div>
             <div class="col-6col-md-8 col-md-pull-4 p-0">
               <div class="row justify-align-content">
-                <div class="col-12 d-flex justify-content-start">
+                <div class="col-12 m-1 d-flex justify-content-center">
                   &nbsp;
-                  <h6><span class="iconify m-1" data-icon="mdi:eye"></span></h6>
+                  <h6><span class="iconify p-3 m-1" data-icon="mdi:eye"></span></h6>
                   &nbsp;<p> {{ keep.keeps }}</p>
                   &nbsp;
                   <h6><span class="iconify m-1" data-icon="mdi:alpha-k-box-outline"></span></h6>
@@ -49,16 +49,16 @@
                 </div>
               </div>
               <div class="emptyspace"></div>
-              <div class="row justify-align-content">
-                <div class="col-3 justify-content-start">
+              <div class="row m-1 justify-align-left">
+                <div class="col-3 justify-content-start hoverable">
                   <h5>Add to Vault</h5>
                 </div>
                 <div class="col-1 justify-content-center">
-                  <h5 class="pt-3 hoverable" @click="destory()">
+                  <h5 class="pt-2 hoverable" @click="destory()">
                     🗑
                   </h5>
                 </div>
-                <div class="col-8 text-center">
+                <div class="col-8 text-right">
                   <div class="bottom-right">
                     <img class="rounded-pill" :src="keep.creator.picture" alt="" srcset="" height="40"> {{ keep.creator.name }}
                   </div>
@@ -111,19 +111,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.customClass{
-  // width: 400px;
-  // height:400px;// custom width
-}
+// .customClass{
+//    width: 400px;
+//    height:400px;// custom width
+// }
 .emptyspace{
   min-height: 15vh;
 }
 .cover-img {
   object-fit:cover;
   width: 100%;
-  width: 100%;
+  height: 100%;
   // max-height: 45vh;
  }
+ .hoverable{
+  cursor: pointer;
+}
  /* Bottom right text */
 .bottom-right {
   // position: absolute;
@@ -131,7 +134,8 @@ export default {
   // right: 3px;
 }
  .modal-dialog{
-   min-width: 320px;
+   min-width: 375px;
+   max-width: 650px;
  }
 
 </style>
