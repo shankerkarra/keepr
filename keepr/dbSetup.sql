@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS keep(
   shares INT default 0 COMMENT 'No of Views',
   keeps INT default 0 COMMENT 'No of Views',
   creatorId VARCHAR(255) NOT NULL comment 'Creator Id',
-  FOREIGN KEY (creatorId) REFERENCES accounts(id)
+  FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
 ) default charset utf8 COMMENT '';
 CREATE TABLE IF NOT EXISTS vault(
   id INT NOT NULL AUTO_INCREMENT primary key COMMENT 'primary key',
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS vault(
   img varchar(255) COMMENT 'Picture',
   isPrivate TINYINT COMMENT 'Is Private',
   creatorId VARCHAR(255) NOT NULL comment 'Creator Id',
-  FOREIGN KEY (creatorId) REFERENCES accounts(id)
+  FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
 ) default charset utf8 COMMENT '';
 CREATE TABLE IF NOT EXISTS vaultkeep(
   id INT NOT NULL AUTO_INCREMENT primary key COMMENT 'primary key',

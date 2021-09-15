@@ -14,20 +14,18 @@ class VaultsService {
   }
 
   async GetVaultsByProfileId(id) {
-    // eslint-disable-next-line no-template-curly-in-string
-    const res = await api.get('api/profiles/${id}/vaults')
+    const res = await api.get(`api/profiles/${id}/vaults`)
     AppState.vaults = res.data
   }
 
-  async Create(data, userId) {
+  async create(data, userId) {
     const res = await api.post('api/vaults', data)
     AppState.vaults = [res.data, ...AppState.vaults]
     this.GetVaultsByProfileId(userId)
   }
 
   async Update(data, userId) {
-    // eslint-disable-next-line no-template-curly-in-string
-    const res = await api.put('api/vaults/${id}', data)
+    const res = await api.put(`api/profiles/${id}`, data)
     AppState.vaults = [res.data, ...AppState.vaults]
     this.GetVaultsByProfileId(userId)
   }

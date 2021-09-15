@@ -135,7 +135,7 @@ export default {
           if (await Pop.confirm('Are you sure you want to Delete?', 'Once Deleted, can be revert back!', 'warning', 'Ok Delete!')) {
             await keepsService.delete(props.keep.id)
             Pop.toast('Delorted', 'success')
-            $('#keepModal').modal('hide')
+            $('#keep-modal-' + props.keep.id).modal('hide')
           }
         } catch (error) {
           Pop.toast(error, 'error')

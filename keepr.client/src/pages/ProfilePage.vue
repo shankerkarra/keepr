@@ -11,14 +11,28 @@
         <br>
       </div>
     </div>
-    <h2>
-      Vaults<button class="btn" data-toggle="modal" data-target="#createvault-modal">
+    <h2> Vaults </h2>
+    <div class="col" title="Create New Vault">
+      <button class="btn btn-warning" :data-target="'#createvault-modal'" data-toggle="modal">
+        <i class="fa fa-plus"></i>
+      </button>
+      <CreateVaultModal :profile="profile" />
+    </div>
+    <!-- <h2> Vaults </h2>
+    <div class="col-4 offset-3" title="Edit Comment">
+      <button class="btn btn-warning" :data-target="'#createvault-modal'" data-toggle="modal">
         <i class="fa fa-plus"> </i>
       </button>
-      <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-        Launch demo modal
-      </button> -->
-    </h2>
+      <CreateVaultModal :profile="profile" />
+    </div> -->
+    <!-- <div class="vault">
+      <h2>
+        Vaults<button class="btn" data-backdrop="static" data-keyboard="false" data-toggle="modal" :data-target="'#createvault-modal'">
+          <i class="fa fa-plus"> </i>
+          <CreateVaultModal :profile="profile" />
+        </button>
+      </h2>
+    </div> -->
     <!-- <div class="container-fluid"> -->
     <div class="row">
       <div v-if="loading" class="col-3 text-center">
@@ -29,11 +43,18 @@
         <ProfileVault v-for="v in vaults" :key="v.id" :vault="v" />
       </div>
     </div>
-    <h2>
+    <h2> Keeps </h2>
+    <div class="col" title="Create New Keep">
+      <button class="btn btn-warning" :data-target="'#createkeep-modal'" data-toggle="modal">
+        <i class="fa fa-plus"></i>
+      </button>
+      <CreateKeepModal :profile="profile" />
+    </div>
+    <!-- <h2>
       Keeps<button class="btn">
         <i class="fa fa-plus"></i>
       </button>
-    </h2>
+    </h2> -->
     <div class="row m-2">
       <div v-if="loading" class="col text-center">
         <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>

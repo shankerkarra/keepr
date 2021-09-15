@@ -11,6 +11,7 @@ import { computed, onMounted } from '@vue/runtime-core'
 import { AppState } from '../AppState'
 import Pop from '../utils/Notifier'
 import { keepsService } from '../services/KeepsService'
+import { vaultsService } from '../services/VaultsService'
 
 export default {
   name: 'Home',
@@ -18,6 +19,8 @@ export default {
     onMounted(async() => {
       try {
         await keepsService.getAll()
+        await keepsService.getAllKeepsByVaultId(AppState.account.Id)
+        await vaultsService.getAllVaultsByVaultId(AppState.account.Id)
       } catch (error) {
         Pop.toast(error, 'error')
       }
