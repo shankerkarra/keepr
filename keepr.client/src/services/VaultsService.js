@@ -9,7 +9,7 @@ class VaultsService {
 
   async getAll() {
     const res = await api.get('api/vaults')
-    logger.log(res.data)
+    // logger.log(res.data)
     AppState.keeps = res.data
   }
 
