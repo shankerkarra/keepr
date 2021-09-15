@@ -1,8 +1,13 @@
 <template>
-  <div class="card img-fluid m-1 px-1 py-1 bg-black text-white" style="width: 19rem;" data-toggle="modal" :data-target="'#keep-modal-'+vault.id">
-    <h4 class="py-2 px-3">
-      {{ vault.name }}
-    </h4>
+  <div class="profilevault rounded elevation-1 bg-light my-3 p-3 text-left selectable">
+    <div class="card-body">
+      <!-- <router-link :to="{name: 'VaultPage'}"> -->
+      <h3 class="m-0">
+        {{ vault.name }}-{{ vault.id }}
+      </h3>
+      <!-- </router-link> -->
+      <!--  needto add , params: {id: vault.id}profileId: profileId in router link -->
+    </div>
   </div>
 </template>
 

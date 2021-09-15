@@ -10,15 +10,15 @@ class ProfilesService {
   }
 
   async GetKeepsByProfileId(id) {
-    // eslint-disable-next-line no-template-curly-in-string
-    const res = await api.get('api/profiles/${id}/keeps')
+    const res = await api.get(`api/profiles/${id}/keeps`)
     AppState.keeps = res.data
+    logger.log(res)
   }
 
   async GetVaultsByProfileId(id) {
-    // eslint-disable-next-line no-template-curly-in-string
-    const res = await api.get('api/profiles/${id}/vaults')
+    const res = await api.get(`api/profiles/${id}/vaults`)
     AppState.vaults = res.data
+    logger.log(res)
   }
 
   async Create(data, userId) {
@@ -27,11 +27,11 @@ class ProfilesService {
     this.GetVaultsByProfileId(userId)
   }
 
-  async Update(data, userId) {
+  async Update(data, id) {
     // eslint-disable-next-line no-template-curly-in-string
-    const res = await api.put('api/vaults/${id}', data)
+    const res = await api.put(`api/vaults/${id}`, data)
     AppState.vaults = [res.data, ...AppState.vaults]
-    this.GetVaultsByProfileId(userId)
+    this.GetVaultsByProfileId(id)
   }
 
   async Delete(id, userId) {

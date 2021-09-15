@@ -53,9 +53,19 @@
                 <div class="col-4 justify-content-start hoverable">
                   <h5 class="pt-2 hoverable">
                     Add to Vault
+                    <!-- DO we need to populate for user selection of Valut? -->
                     <!--  @click="AddtoVault(keep.Id)" -->
+                    <form>
+                      <select title="Add to Vault" @change="addToVault($event.target.value)" class="btn btn-primary">
+                        <option value="" selected disabled hidden>
+                          Add to Vault
+                        </option>
+                        <option v-for="vault in state.myVaults" :value="vault.id" :key="vault.id">
+                          {{ vault.name }}
+                        </option>
+                      </select>
+                    </form>
                   </h5>
-                  <!-- DO we need to populate for user selection of Valut? -->
                 </div>
                 <div class="col-2 justify-content-center">
                   <h5 class="pt-2 hoverable" @change="destroy($event.target.value)">
@@ -78,12 +88,13 @@
 
 <script>
 import { reactive } from '@vue/reactivity'
-import { computed } from '@vue/runtime-core'
-import { AppState } from '../AppState'
 import { keepsService } from '../services/KeepsService'
 import $ from 'jquery'
+import { computed, onMounted, ref } from '@vue/runtime-core'
+import { AppState } from '../AppState'
+import { profilesService } from '../services/ProfilesService'
+import { useRoute } from 'vue-router'
 import Pop from '../utils/Notifier'
-import { vaultsService } from '../services/VaultsService'
 
 export default {
   props: {
@@ -93,6 +104,16 @@ export default {
     }
   },
   setup(props) {
+    const route = useRoute()
+    const loading = ref(true)
+    onMounted(async() => {
+      try {
+        await profilesService.GetVaultsByProfileId(AppState.account.Id)
+        loading.value = false
+      } catch (error) {
+        Pop.Toast(error, 'error')
+      }
+    })
     const state = reactive({
       newkeep: {
         keepId: props.keep.id
@@ -102,6 +123,7 @@ export default {
       myVaults: computed(() => AppState.vaults),
       newVaultKeep: {}
     })
+
     return {
       state,
       async destroy() {
@@ -122,7 +144,7 @@ export default {
           state.newVaultKeep.keepId = state.activeKeep.id
           state.newVaultKeep.VaultId = vault
           if (state.newVaultKeep.VaultId) {
-            await keepsService.AddtoVault(state.newVaultKeep)
+            await keepsService.addKeeptoVault(state.newVaultKeep)
           }
           $('#keepModal').modal('hide')
         } catch (error) {
