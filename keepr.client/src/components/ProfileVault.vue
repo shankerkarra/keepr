@@ -1,13 +1,12 @@
 <template>
-  <div class="profilevault rounded elevation-1 bg-light my-3 p-3 text-left selectable">
-    <div class="card-body">
-      <!-- <router-link :to="{name: 'VaultPage'}"> -->
+  <div class="card rounded elevation-1 bg-light my-3 p-3 text-left selectable">
+    <!-- <div class=""> -->
+    <router-link :to="{ name: 'Vault', params: {id: vault.id } }" @click.stop="">
       <h3 class="m-0">
-        {{ vault.name }}-{{ vault.id }}
+        {{ vault.name }} - {{ vault.id }}
       </h3>
-      <!-- </router-link> -->
-      <!--  needto add , params: {id: vault.id}profileId: profileId in router link -->
-    </div>
+    </router-link>
+    <!-- </div> -->
   </div>
 </template>
 
@@ -25,6 +24,7 @@ export default {
   setup(props) {
     return {
       account: computed(() => AppState.account)
+
     }
   }
 }
