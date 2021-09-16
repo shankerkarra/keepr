@@ -94,7 +94,6 @@ export default {
       state,
       async createkeep() {
         try {
-          debugger
           state.newKeep.creatorId = AppState.account.id
           await keepsService.create(state.newKeep, AppState.account.id)
           $('#createkeep-modal').modal('hide')

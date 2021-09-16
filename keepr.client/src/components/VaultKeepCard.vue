@@ -1,20 +1,17 @@
 <template>
-  <div class="card img-fluid m-1 px-1 py-1 text-white" style="width: 19rem;" data-toggle="modal" :data-target="'#keep-modal-'+keep.id">
+  <div class="card img-fluid m-1 px-1 py-1 Text-white" style="width: 19rem;">
     <img class="cover-img" :src="keep.img" alt="Card image">
     <div class="card-img-overlay">
       <div class="bottom-left">
-        <h4 class="py-1 px-2">
+        <h4 class="py-2 px-2">
           {{ keep.name }}
         </h4>
       </div>
     </div>
-    <div class="bottom-right py-2 justify-content-right">
-      <router-link router-link :to="{ name: 'Profile', params: {id: keep.creator.id } }" @click.stop="" class="creator p-3 align-self-end">
-        <img class="rounded-pill" :src="keep.creator.picture" alt="" srcset="" height="40">
-      </router-link>
+    <div class="bottom-right py-3 justify-content-right">
+      <img class="rounded-pill" :src="keep.creator.picture" alt="" srcset="" height="40">
     </div>
   </div>
-  <KeepModal v-if="keep.id" :keep="keep" />
 </template>
 
 <script>
@@ -31,6 +28,7 @@ export default {
   setup(props) {
     return {
       account: computed(() => AppState.account)
+
     }
   }
 }
@@ -38,8 +36,8 @@ export default {
 
 <style lang="scss" scoped>
 .cover-img {
-  height: 200px;
-  width: 250px;
+  height: 400px;
+  width: 400px;
   object-fit:cover;
   width:100%;
 }
@@ -47,10 +45,7 @@ a {
   color: inherit;
   text-decoration: inherit;
 }
-.cardopacity {
-  background-color: rgba(245, 245, 245, 1);
-  opacity: .4;
-}
+
 .creator{
   height: 3em;
 }
@@ -84,8 +79,8 @@ a {
 /* Bottom right text */
 .bottom-right {
   position: absolute;
-  bottom: 1px;
-  right: 0px;
+  bottom: 0px;
+  right: 8px;
 }
 
 </style>

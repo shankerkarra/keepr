@@ -19,8 +19,8 @@ export default {
     onMounted(async() => {
       try {
         await keepsService.getAll()
-        await keepsService.getAllKeepsByVaultId(AppState.account.Id)
-        await vaultsService.getAllVaultsByVaultId(AppState.account.Id)
+        // await keepsService.GetKeepsByProfileId(AppState.account.Id)
+        await vaultsService.GetVaultsByProfileId(AppState.account.Id)
       } catch (error) {
         Pop.toast(error, 'error')
       }

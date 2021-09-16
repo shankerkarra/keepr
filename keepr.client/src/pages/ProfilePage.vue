@@ -1,72 +1,62 @@
 <template>
   <div class="Profile container-fluid">
-    <div class="row masonry">
-      <div class="row">
+    <!-- <div class="row masonry"> -->
+    <div class="row m-2">
+      <div class="col-2 m-2 text-right">
         <img class="rounded" :src="account.picture" alt="user Profile" />
       </div>
-      <div class="col m-2">
+      <div class="col-8 justify-content-left">
         <h1>{{ account.name }}</h1>
         <h5>Vaults : {{ profileVaults }}</h5>
         <h5>Keeps  : {{ profileKeeps }}</h5>
         <br>
       </div>
     </div>
-    <h2> Vaults </h2>
-    <div class="col" title="Create New Vault">
-      <button class="btn btn-warning" :data-target="'#createvault-modal'" data-toggle="modal">
-        <i class="fa fa-plus"></i>
-      </button>
-      <CreateVaultModal :profile="profile" />
-    </div>
-    <!-- <h2> Vaults </h2>
-    <div class="col-4 offset-3" title="Edit Comment">
-      <button class="btn btn-warning" :data-target="'#createvault-modal'" data-toggle="modal">
-        <i class="fa fa-plus"> </i>
-      </button>
-      <CreateVaultModal :profile="profile" />
-    </div> -->
-    <!-- <div class="vault">
-      <h2>
-        Vaults<button class="btn" data-backdrop="static" data-keyboard="false" data-toggle="modal" :data-target="'#createvault-modal'">
-          <i class="fa fa-plus"> </i>
-          <CreateVaultModal :profile="profile" />
-        </button>
-      </h2>
-    </div> -->
-    <!-- <div class="container-fluid"> -->
     <div class="row">
-      <div v-if="loading" class="col-3 text-center">
-        <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+      <div class="col-2 text-right">
+        <h2> Vaults </h2>
       </div>
-      <div v-else class="col-3">
-        <!-- Add Mdi + button -->
-        <ProfileVault v-for="v in vaults" :key="v.id" :vault="v" />
+      <div class="col= text-left" title="Create New Vault">
+        <button class="btn btn-warning" :data-target="'#createvault-modal'" data-toggle="modal">
+          <i class="fa fa-plus"></i>
+        </button>
+        <CreateVaultModal :profile="profile" />
       </div>
     </div>
-    <h2> Keeps </h2>
-    <div class="col" title="Create New Keep">
-      <button class="btn btn-warning" :data-target="'#createkeep-modal'" data-toggle="modal">
-        <i class="fa fa-plus"></i>
-      </button>
-      <CreateKeepModal :profile="profile" />
+    <div class="row p-2">
+      <div class="container card-group">
+        <div v-if="loading" class="col-3 text-center">
+          <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+        </div>
+        <div v-else class="col">
+          <!-- Add Mdi + button -->
+          <ProfileVault v-for="v in vaults" :key="v.id" :vault="v" />
+        </div>
+      </div>
     </div>
-    <!-- <h2>
-      Keeps<button class="btn">
-        <i class="fa fa-plus"></i>
-      </button>
-    </h2> -->
+    <div class="row">
+      <div class="col-2 text-right">
+        <h2> Keeps </h2>
+      </div>
+      <div class="col" title="Create New Keep">
+        <button class="btn btn-warning" :data-target="'#createkeep-modal'" data-toggle="modal">
+          <i class="fa fa-plus"></i>
+        </button>
+        <CreateKeepModal :profile="profile" />
+      </div>
+    </div>
     <div class="row m-2">
-      <div v-if="loading" class="col text-center">
-        <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
-      </div>
-      <div v-else class="col">
-        <h2>Keeps:</h2>
-        Add Mdi + button
-        <ProfileKeep v-for="k in keeps" :key="k.id" :keep="k" />
+      <div class="container-fluid">
+        <div class="row masonry">
+          <div v-if="loading" class="col text-center">
+            <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+          </div>
+          <div v-else class="col">
+            <ProfileKeep v-for="k in keeps" :key="k.id" :keep="k" />
+          </div>
+        </div>
       </div>
     </div>
-    <!-- <NewModal v-if="vaults.id" :vaults="vault" /> -->
-    <!-- <CreateKeepModal v-if="keep.id" :keep="keep" /> -->
   </div>
 </template>
 
@@ -135,5 +125,42 @@ img {
 /* Darker background on mouse-over */
 .btn:hover {
   background-color: white;
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+
+.card-body {
+    flex: 1 1 auto;
+    padding: 1.25rem;
+}
+
+.card-title {
+    margin-bottom: .75rem;
+}
+
+.card-img-top {
+    width: 100%;
+    border-top-left-radius: calc(.25rem - 1px);
+    border-top-right-radius: calc(.25rem - 1px);
+}
+
+.text-left {
+    text-align: left!important;
+}
+.pb-2, .py-2 {
+    padding-bottom: .5rem!important;
+}
+.pt-2, .py-2 {
+    padding-top: .5rem!important;
 }
 </style>

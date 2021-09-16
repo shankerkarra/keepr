@@ -39,7 +39,6 @@
                 <div class="col-12 m-1 justify-align-text">
                   <h6 class="modal-title">
                     {{ keep.name }}
-                    {{ state.myVaults }}
                   </h6>
                 </div>
                 <div class="col-12 m-1 justify-content-left">
@@ -49,36 +48,34 @@
                 </div>
               </div>
               <div class="emptyspace"></div>
-              <div class="row m-1 justify-align-left">
+              <div class="row m-1 justify-align-right">
                 <span v-if="state.user">
-                  <div class="col-4 justify-content-start hoverable" v-if="state.user.isAuthenticated && state.account.id == keep.creatorId">
-                    <div class="userdisplay">
-                      <h5 class="pt-2 hoverable">
-                        <!-- Add to Vault -->
-                        <!-- DO we need to populate for user selection of Valut? -->
-                        <!--  @click="AddtoVault(keep.Id)" -->
-                        <form>
-                          <select title="Add to Vault" @change.prevent="addToVault($event.target.value)" class="btn btn-primary">
-                            <option value="" selected disabled hidden>
-                              Add to Vault
-                            </option>
-                            <option v-for="vault in state.myVaults" :value="vault.id" :key="vault.id">
-                              {{ vault.name }}
-                            </option>
-                          </select>
-                        </form>
-                      </h5>
-                    </div>
-                    <div class="col-2 justify-content-center">
-                      <h5 class="pt-2 hoverable" @click="destroy($event.target.value)">
-                        🗑
-                      </h5>
-                    </div>
-                  </div></span>
-              </div>
-              <div class="col-6 text-right">
-                <div class="bottom-right">
+                  <div class="col-4 justify-content-start hoverable">
+                    <!-- v-if="state.user.isAuthenticated && state.account.id == keep.creatorId"> -->
+                    <!-- <div class="userdisplay"> -->
+                    <h5 class="Col-5 hoverable">
+                      <form>
+                        <select title="Add to Vault" @change.prevent="addToVault($event.target.value)" class="btn btn-primary">
+                          <option value="" selected disabled hidden>
+                            Add to Vault
+                          </option>
+                          <option v-for="vault in state.myVaults" :value="vault.id" :key="vault.id">
+                            {{ vault.name }}
+                          </option>
+                        </select>
+                      </form>
+                    </h5>
+                  </div>
+                  <div class="col-2 justify-content-center">
+                    <h5 class="pt-2 hoverable" @click="destroy($event.target.value)">
+                      🗑
+                    </h5>
+                  </div>
+                </span>
+                <div class="col-6 bottom-right">
+                  <!-- <div class="bottom-right"> -->
                   <img class="rounded-pill" :src="keep.creator.picture" alt="" srcset="" height="40"> {{ keep.creator.name }}
+                  <!-- </div> -->
                 </div>
               </div>
             </div>
@@ -124,7 +121,7 @@ export default {
       user: computed(() => AppState.user),
       activeKeep: computed(() => AppState.activeKeep),
       account: computed(() => AppState.account),
-      myVaults: computed(() => AppState.vaults),
+      myVaults: computed(() => AppState.profileVaults),
       newVaultKeep: {}
     })
 
@@ -135,7 +132,7 @@ export default {
           if (await Pop.confirm('Are you sure you want to Delete?', 'Once Deleted, can be revert back!', 'warning', 'Ok Delete!')) {
             await keepsService.delete(props.keep.id)
             Pop.toast('Delorted', 'success')
-            $('#keep-modal-' + props.keep.id).modal('hide')
+            $('#keep-modal-' + props.keep.id).modal('toggle')
           }
         } catch (error) {
           Pop.toast(error, 'error')
@@ -150,7 +147,8 @@ export default {
           if (state.newVaultKeep.VaultId) {
             await keepsService.addKeeptoVault(state.newVaultKeep)
           }
-          $('#keepModal').modal('hide')
+          $('#keep-modal-' + props.keep.id).modal('toggle')
+          // $('#keepModal').modal('toggle')
         } catch (error) {
           Pop.toast(error, 'error')
         }
@@ -185,7 +183,7 @@ export default {
 }
  .modal-dialog{
    min-width: 375px;
-   max-width: 650px;
+   max-width: 750px;
  }
 
 </style>

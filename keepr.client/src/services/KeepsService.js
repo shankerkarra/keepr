@@ -34,7 +34,7 @@ class KeepsService {
 
   async getKeepsByVaultId(id) {
     const res = await api.get(`api/vaults/${id}/keeps`)
-    AppState.keeps = res.data
+    AppState.KeepsByVault = res.data
   }
 
   async GetKeepsByProfileId(id) {
