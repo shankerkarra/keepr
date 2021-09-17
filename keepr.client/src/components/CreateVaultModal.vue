@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import { reactive } from '@vue/reactivity'
+import { computed, reactive } from '@vue/reactivity'
 import { vaultsService } from '../services/VaultsService'
 import { AppState } from '../AppState'
 import $ from 'jquery'
@@ -90,6 +90,7 @@ export default {
     })
     return {
       state,
+      account: computed(() => AppState.account),
       async createVault() {
         try {
           state.newVault.creatorId = AppState.account.id

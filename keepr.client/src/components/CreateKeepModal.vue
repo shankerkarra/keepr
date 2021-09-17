@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import { reactive } from '@vue/reactivity'
+import { computed, reactive } from '@vue/reactivity'
 import { keepsService } from '../services/KeepsService'
 import { AppState } from '../AppState'
 import $ from 'jquery'
@@ -92,6 +92,7 @@ export default {
     })
     return {
       state,
+      account: computed(() => AppState.account),
       async createkeep() {
         try {
           state.newKeep.creatorId = AppState.account.id

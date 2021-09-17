@@ -55,11 +55,10 @@
 <script>
 import { computed, onMounted, ref } from 'vue'
 import { AppState } from '../AppState'
-import { onBeforeRouteLeave, useRoute, useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import Pop from '../utils/Notifier'
 import { profilesService } from '../services/ProfilesService'
 import { keepsService } from '../services/KeepsService'
-import { logger } from '../utils/Logger'
 
 export default {
   name: 'Profile',
@@ -69,8 +68,6 @@ export default {
     const loading = ref(true)
     onMounted(async() => {
       try {
-        // await keepsService.getAll()
-
         await profilesService.GetKeepsByProfileId(route.params.id)
         await profilesService.GetVaultsByProfileId(route.params.id)
         loading.value = false
@@ -78,23 +75,6 @@ export default {
         Pop.toast(error, 'error')
       }
     })
-    // onBeforeRouteLeave((profile, vault) => {
-    //   try {
-    //     // debugger
-    //     keepsService.getKeepsByVaultId(AppState.activeVault.id)
-    //     logger.log(AppState.KeepsByVault.length)
-    //     if (AppState.KeepsByVault.length === 0) { router.push({ name: 'Home' }) }
-    //   } catch (error) {
-    //     Pop.Toast(error, 'error')
-    //   }
-
-    //   // const answer = window.confirm(
-    //   //   'Do you really want to leave? you have unsaved changes!'
-    //   // )
-    //   // cancel the navigation and stay on the same page
-    //   // if (!answer) return false
-    // })
-
     return {
       loading,
       user: computed(() => AppState.user),
@@ -104,7 +84,6 @@ export default {
       profileKeeps: computed(() => AppState.myKeeps.length),
       keeps: computed(() => AppState.myKeeps),
       vaults: computed(() => AppState.myVaults)
-
     }
   }
 }
