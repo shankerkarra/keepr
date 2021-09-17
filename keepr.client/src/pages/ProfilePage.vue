@@ -2,10 +2,10 @@
   <div class="Profile container-fluid">
     <!-- <div class="row masonry"> -->
     <div class="row m-2">
-      <div class="col-2 m-2 text-right">
+      <div class="col-12 col-md-2">
         <img class="rounded" :src="account.picture" alt="user Profile" />
       </div>
-      <div class="col-8 justify-content-left">
+      <div class="col-12 col-md-4">
         <h1>{{ account.name }}</h1>
         <h5>Vaults : {{ profileVaults }}</h5>
         <h5>Keeps  : {{ profileKeeps }}</h5>
@@ -23,17 +23,15 @@
         <CreateVaultModal :profile="profile" />
       </div>
     </div>
-    <div class="row p-2">
-      <div class="container card-group">
-        <div v-if="loading" class="col-3 text-center">
-          <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
-        </div>
-        <div v-else class="col">
-          <!-- Add Mdi + button -->
-          <ProfileVault v-for="v in vaults" :key="v.id" :vault="v" />
-        </div>
+    <div class="row m-2">
+      <div v-if="loading" class="col text-center">
+        <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
       </div>
+      <!-- <div v-else class="col"> -->
+      <ProfileVault v-for="v in vaults" :key="v.id" :vault="v" />
+      <!-- </div> -->
     </div>
+    <!-- v-if="state.user.isAuthenticated && state.account.id == keep.creatorId" -->
     <div class="row">
       <div class="col-2 text-right">
         <h2> Keeps </h2>
@@ -46,16 +44,10 @@
       </div>
     </div>
     <div class="row m-2">
-      <div class="container-fluid">
-        <div class="row masonry">
-          <div v-if="loading" class="col text-center">
-            <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
-          </div>
-          <div v-else class="col">
-            <ProfileKeep v-for="k in keeps" :key="k.id" :keep="k" />
-          </div>
-        </div>
+      <div v-if="loading" class="col text-center">
+        <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
       </div>
+      <ProfileKeep v-for="k in keeps" :key="k.id" :keep="k" />
     </div>
   </div>
 </template>
@@ -63,33 +55,56 @@
 <script>
 import { computed, onMounted, ref } from 'vue'
 import { AppState } from '../AppState'
-import { useRoute } from 'vue-router'
+import { onBeforeRouteLeave, useRoute, useRouter } from 'vue-router'
 import Pop from '../utils/Notifier'
 import { profilesService } from '../services/ProfilesService'
+import { keepsService } from '../services/KeepsService'
+import { logger } from '../utils/Logger'
 
 export default {
   name: 'Profile',
   setup() {
     const route = useRoute()
+    const router = useRouter()
     const loading = ref(true)
     onMounted(async() => {
       try {
         // await keepsService.getAll()
+
         await profilesService.GetKeepsByProfileId(route.params.id)
         await profilesService.GetVaultsByProfileId(route.params.id)
         loading.value = false
       } catch (error) {
-        Pop.Toast(error, 'error')
+        Pop.toast(error, 'error')
       }
     })
+    // onBeforeRouteLeave((profile, vault) => {
+    //   try {
+    //     // debugger
+    //     keepsService.getKeepsByVaultId(AppState.activeVault.id)
+    //     logger.log(AppState.KeepsByVault.length)
+    //     if (AppState.KeepsByVault.length === 0) { router.push({ name: 'Home' }) }
+    //   } catch (error) {
+    //     Pop.Toast(error, 'error')
+    //   }
+
+    //   // const answer = window.confirm(
+    //   //   'Do you really want to leave? you have unsaved changes!'
+    //   // )
+    //   // cancel the navigation and stay on the same page
+    //   // if (!answer) return false
+    // })
+
     return {
       loading,
+      user: computed(() => AppState.user),
       account: computed(() => AppState.account),
       profile: computed(() => AppState.activeProfile),
-      keeps: computed(() => AppState.keeps),
-      vaults: computed(() => AppState.vaults),
-      profileVaults: computed(() => AppState.vaults.length),
-      profileKeeps: computed(() => AppState.keeps.length)
+      profileVaults: computed(() => AppState.myVaults.length),
+      profileKeeps: computed(() => AppState.myKeeps.length),
+      keeps: computed(() => AppState.myKeeps),
+      vaults: computed(() => AppState.myVaults)
+
     }
   }
 }
@@ -105,7 +120,7 @@ img {
   column-count: 4;
   -webkit-column-gap: 1em;
   -moz-column-gap: 1em;
-  column-gap: 1em;
+  column-gap: .5em;
    margin: 1.5em;
     padding: 0;
     -moz-column-gap: 1.5em;

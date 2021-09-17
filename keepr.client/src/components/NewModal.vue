@@ -23,7 +23,7 @@ export default {
         await profilesService.GetVaultsByProfileId(route.params.id)
         loading.value = false
       } catch (error) {
-        Pop.Toast(error, 'error')
+        Pop.toast(error, 'error')
       }
     })
     return {

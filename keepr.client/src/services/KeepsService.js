@@ -9,7 +9,7 @@ class KeepsService {
 
   async GetById(id) {
     const res = await api.get(`api/keeps/${id}`)
-    AppState.keeps = res.data
+    AppState.activeKeep = res.data
   }
 
   async create(keep, userId) {
@@ -35,20 +35,21 @@ class KeepsService {
   async getKeepsByVaultId(id) {
     const res = await api.get(`api/vaults/${id}/keeps`)
     AppState.KeepsByVault = res.data
+    // logger.log(AppState.KeepsByVault)
   }
 
   async GetKeepsByProfileId(id) {
     const res = await api.get(`api/profiles/${id}/keeps`)
-    AppState.keeps = res.data
+    AppState.myKeeps = res.data
   }
 
   async addKeeptoVault(data) {
     await api.post('api/vaultKeeps', data)
   }
 
-  async removeVaultKeep(id, vaultId) {
+  async deleteVaultKeep(id, vaultId) {
     await api.delete(`api/vaultkeeps/${id}`)
-    this.getAllKeepsByVaultId(vaultId)
+    this.getKeepsByVaultId(vaultId)
   }
 }
 

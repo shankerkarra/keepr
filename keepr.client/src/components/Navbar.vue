@@ -24,7 +24,6 @@
           </router-link>
         </li>
       </ul>
-
       <div class="form-group m-2">
         <input type="text"
                class="form-control"

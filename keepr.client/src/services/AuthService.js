@@ -5,6 +5,7 @@ import { router } from '../router'
 import { accountService } from './AccountService'
 import { api } from './AxiosService'
 import { keepsService } from './KeepsService'
+import { vaultsService } from './VaultsService'
 // import { socketService } from './SocketService'
 
 export const AuthService = initialize({
@@ -28,8 +29,8 @@ AuthService.on(AuthService.AUTH_EVENTS.AUTHENTICATED, async function() {
   await accountService.getAccount()
   // socketService.authenticate(AuthService.bearer)
   // NOTE if there is something you want to do once the user is authenticated, place that here
-  // await keepsService.getAllKeepsByVaultId(AppState.account.Id)
-  // await keepsService.getAllVaultsByVaultId(AppState.account.Id)
+  await vaultsService.GetVaultsByProfileId(AppState.account.id)
+  await keepsService.GetKeepsByProfileId(AppState.account.id)
 })
 
 async function refreshAuthToken(config) {

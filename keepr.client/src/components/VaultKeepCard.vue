@@ -5,11 +5,18 @@
       <div class="bottom-left">
         <h4 class="py-2 px-2">
           {{ keep.name }}
+          <!-- {{ keep }}
+          {{ activeVault }} -->
         </h4>
       </div>
     </div>
     <div class="bottom-right py-3 justify-content-right">
       <img class="rounded-pill" :src="keep.creator.picture" alt="" srcset="" height="40">
+    </div>
+    <div class="top-right py-3 justify-content-right">
+      <h5 class="pt-3 pb-2 hoverable" @click="destory(keep.vaultKeepId, activeVault.id)">
+        🗑
+      </h5>
     </div>
   </div>
 </template>
@@ -17,6 +24,8 @@
 <script>
 import { computed } from '@vue/runtime-core'
 import { AppState } from '../AppState'
+import Pop from '../utils/Notifier'
+import { keepsService } from '../services/KeepsService'
 
 export default {
   props: {
@@ -27,8 +36,13 @@ export default {
   },
   setup(props) {
     return {
-      account: computed(() => AppState.account)
-
+      account: computed(() => AppState.account),
+      activeVault: computed(() => AppState.activeVault),
+      async destory(vaultKeepId, vaultId) {
+        // delete the link in the VaultKeep
+        await keepsService.deleteVaultKeep(vaultKeepId, vaultId)
+        Pop.toast('Deleted Keep from your Vault', 'Success')
+      }
     }
   }
 }

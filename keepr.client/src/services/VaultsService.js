@@ -15,7 +15,7 @@ class VaultsService {
 
   async GetVaultsByProfileId(id) {
     const res = await api.get(`api/profiles/${id}/vaults`)
-    AppState.profileVaults = res.data
+    AppState.myVaults = res.data
   }
 
   async create(data, userId) {
@@ -31,7 +31,6 @@ class VaultsService {
   }
 
   async Delete(id, userId) {
-    debugger
     const res = await api.delete('api/vaults/' + id)
     // (`api/vaults/${id}`)
     AppState.vaults = AppState.vaults.filter(v => v.id !== res.data.id)

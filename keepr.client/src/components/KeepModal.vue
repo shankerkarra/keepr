@@ -19,9 +19,9 @@
           </div>
           <div class="row">
             <div class="col-6 col-md-4 col-md-push-8 justify-content-left p-0 !important;">
-              <img class="cover-img m-1" :src="keep.img" alt="Card image">
+              <img class="cover-img m-1" w-100 h-100 :src="keep.img" alt="Card image">
             </div>
-            <div class="col-6col-md-8 col-md-pull-4 p-0">
+            <div class="col-6 col-md-8 col-md-pull-4 p-0">
               <div class="row justify-align-content">
                 <div class="col-12 p-1 m-1 d-flex justify-content-center">
                   <h6><span class="iconify m-1" data-icon="mdi:eye"></span></h6>
@@ -50,29 +50,31 @@
               <div class="emptyspace"></div>
               <div class="row m-1 justify-align-right">
                 <span v-if="state.user">
-                  <div class="col-4 justify-content-start hoverable">
-                    <!-- v-if="state.user.isAuthenticated && state.account.id == keep.creatorId"> -->
-                    <!-- <div class="userdisplay"> -->
-                    <h5 class="Col-5 hoverable">
-                      <form>
-                        <select title="Add to Vault" @change.prevent="addToVault($event.target.value)" class="btn btn-primary">
-                          <option value="" selected disabled hidden>
-                            Add to Vault
-                          </option>
-                          <option v-for="vault in state.myVaults" :value="vault.id" :key="vault.id">
-                            {{ vault.name }}
-                          </option>
-                        </select>
-                      </form>
-                    </h5>
-                  </div>
-                  <div class="col-2 justify-content-center">
-                    <h5 class="pt-2 hoverable" @click="destroy($event.target.value)">
-                      🗑
-                    </h5>
-                  </div>
-                </span>
-                <div class="col-6 bottom-right">
+                  <!-- <div class="col-3 justify-content-start hoverable"> -->
+                  <!-- v-if="state.user.isAuthenticated && state.account.id == keep.creatorId"> -->
+                  <div class="userdisplay">
+                    <div class="col-2">
+                      <h5 class="hoverable bottom-row m-0">
+                        <form>
+                          <select title="Add to Vault" @change.prevent="addToVault($event.target.value)" class="btn btn-primary " style="width:140px">
+                            <option value="" selected disabled hidden>
+                              Add to Vault
+                            </option>
+                            <option v-for="vault in state.myVaults" :value="vault.id" :key="vault.id">
+                              {{ vault.name }}
+                            </option>
+                          </select>
+                        </form>
+                      </h5>
+                    </div>
+                    <div class="col-2 bottom-row-trash justify-content-right">
+                      <h5 class=" hoverable" @click="destroy($event.target.value)">
+                        🗑
+                      </h5>
+                    </div>
+                  </div></span>
+                <!-- </div> -->
+                <div class="col-6 offset-8 bottom-right">
                   <!-- <div class="bottom-right"> -->
                   <img class="rounded-pill" :src="keep.creator.picture" alt="" srcset="" height="40"> {{ keep.creator.name }}
                   <!-- </div> -->
@@ -108,7 +110,8 @@ export default {
     const loading = ref(true)
     onMounted(async() => {
       try {
-        await profilesService.GetVaultsByProfileId(AppState.account?.Id)
+        keepsService.GetById(props.keep.id)
+        // if (state.account) { await profilesService.GetVaultsByProfileId(AppState.account.Id) }
         loading.value = false
       } catch (error) {
         Pop.toast(error, 'error')
@@ -119,9 +122,9 @@ export default {
         keepId: props.keep.id
       },
       user: computed(() => AppState.user),
-      activeKeep: computed(() => AppState.activeKeep),
+      activeKeep: computed(() => state.keep),
       account: computed(() => AppState.account),
-      myVaults: computed(() => AppState.profileVaults),
+      myVaults: computed(() => AppState.myVaults),
       newVaultKeep: {}
     })
 
@@ -139,13 +142,15 @@ export default {
         }
       },
       // Need to add to VAult
-      async AddtoVault(vault) {
+      async addToVault(vault) {
         try {
           state.newVaultkeep = {}
-          state.newVaultKeep.keepId = state.activeKeep.id
+          state.newVaultKeep.keepId = props.keep.id
           state.newVaultKeep.VaultId = vault
+          // state.newVaultKeep.keepId = AppState.account.id
           if (state.newVaultKeep.VaultId) {
             await keepsService.addKeeptoVault(state.newVaultKeep)
+            Pop.toast('Keep added  to your Vault', 'success')
           }
           $('#keep-modal-' + props.keep.id).modal('toggle')
           // $('#keepModal').modal('toggle')
@@ -168,7 +173,7 @@ export default {
 }
 .cover-img {
   object-fit:cover;
-  width: 100%;
+  width: 90%;
   height: 100%;
   // max-height: 45vh;
  }
@@ -177,13 +182,21 @@ export default {
 }
  /* Bottom right text */
 .bottom-right {
-  // position: absolute;
-  bottom: 1px;
-  // right: 3px;
+  position: absolute;
+  bottom: 30px;
+  right: 0px;
+}
+.bottom-row {
+   bottom: 20px;
+  left: 10px;
+}
+.bottom-row-trash {
+   bottom: 25px;
+   left: 165px;
 }
  .modal-dialog{
    min-width: 375px;
    max-width: 750px;
  }
 
-</style>
+ </style>

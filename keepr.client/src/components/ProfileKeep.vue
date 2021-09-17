@@ -1,5 +1,5 @@
 <template>
-  <div class="card img-fluid m-1 px-1 py-1 bg-black text-white" style="width: 19rem;">
+  <div class="card img-fluid col-3 m-0 px-1 py-1 bg-black text-white" style="width: 19rem;">
     <img class="cover-img" :src="keep.img" alt="Card image">
     <div class="card-img-overlay">
       <div class="bottom-left">
