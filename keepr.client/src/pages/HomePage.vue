@@ -1,8 +1,8 @@
 <template>
-  <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
-    <div class="row">
-      <KeepThread :keeps="keeps" :account="account" />
-    </div>
+  <div class="container-fluid d-flex flex-wrap">
+    <!-- <div class="row"> -->
+    <KeepThread :keeps="keeps" :account="account" />
+    <!-- </div> -->
   </div>
 </template>
 
@@ -26,6 +26,7 @@ export default {
     return {
       keeps: computed(() => AppState.keeps),
       account: computed(() => AppState.account)
+
     }
   }
 }

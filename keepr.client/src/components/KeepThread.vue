@@ -1,9 +1,9 @@
 <template>
-  <div class="container-fluid">
-    <div class="row masonry">
-      <KeepCard v-for="k in keeps" :key="k.id" :keep="k" />
-    </div>
+  <!-- <div class="container-fluid"> -->
+  <div class="masonry">
+    <KeepCard v-for="k in keeps" :key="k.id" :keep="k" class="item" />
   </div>
+  <!-- </div> -->
 </template>
 
 <script>

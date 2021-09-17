@@ -3,20 +3,23 @@
     <!-- <div class="row masonry"> -->
     <div class="row m-2">
       <div class="col-12 col-md-2">
-        <img class="rounded" :src="account.picture" alt="user Profile" />
+        <img class="rounded" :src="profile.picture" alt="user Profile" />
       </div>
       <div class="col-12 col-md-4">
-        <h1>{{ account.name }}</h1>
+        <h1>{{ profile.name }}</h1>
+
         <h5>Vaults : {{ profileVaults }}</h5>
         <h5>Keeps  : {{ profileKeeps }}</h5>
-        <br>
+        <!-- {{ account }}
+        {{ profile }}
+        {{ user.isAuthenticated }} -->
       </div>
     </div>
     <div class="row">
       <div class="col-2 text-right">
         <h2> Vaults </h2>
       </div>
-      <div class="col= text-left" title="Create New Vault">
+      <div class="col= text-left" title="Create New Vault" v-if="user.isAuthenticated && account.id == profile.id">
         <button class="btn btn-warning" :data-target="'#createvault-modal'" data-toggle="modal">
           <i class="fa fa-plus"></i>
         </button>
@@ -36,7 +39,7 @@
       <div class="col-2 text-right">
         <h2> Keeps </h2>
       </div>
-      <div class="col" title="Create New Keep">
+      <div class="col" title="Create New Keep" v-if="user.isAuthenticated && account.id == profile.id">
         <button class="btn btn-warning" :data-target="'#createkeep-modal'" data-toggle="modal">
           <i class="fa fa-plus"></i>
         </button>
@@ -68,6 +71,7 @@ export default {
     const loading = ref(true)
     onMounted(async() => {
       try {
+        await profilesService.GetById(route.params.id)
         await profilesService.GetKeepsByProfileId(route.params.id)
         await profilesService.GetVaultsByProfileId(route.params.id)
         loading.value = false

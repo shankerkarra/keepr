@@ -97,6 +97,7 @@ export default {
         try {
           state.newKeep.creatorId = AppState.account.id
           await keepsService.create(state.newKeep, AppState.account.id)
+          Pop.toast('Added Keep', 'success')
           $('#createkeep-modal').modal('hide')
         } catch (error) {
           Pop.toast(error, 'error')

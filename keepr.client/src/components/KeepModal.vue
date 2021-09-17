@@ -18,17 +18,17 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-6 col-md-4 col-md-push-8 justify-content-left p-0 !important;">
+            <div class="col col-md-6 justify-content-left p-0">
               <img class="cover-img m-1" w-100 h-100 :src="keep.img" alt="Card image">
             </div>
-            <div class="col-6 col-md-8 col-md-pull-4 p-0">
+            <div class="col col-md-6 p-0" v-if="state.activeKeep.id != null">
               <div class="row justify-align-content">
                 <div class="col-12 p-1 m-1 d-flex justify-content-center">
                   <h6><span class="iconify m-1" data-icon="mdi:eye"></span></h6>
-                  &nbsp;<p> {{ keep.keeps }}</p>
+                  &nbsp;<p> {{ keep.views }}</p>
                   &nbsp;
                   <h6><span class="iconify m-1" data-icon="mdi:alpha-k-box-outline"></span></h6>
-                  &nbsp;<p> {{ keep.views }}</p>
+                  &nbsp;<p> {{ keep.keeps }}</p>
                   &nbsp;
                   <h6><span class="iconify m-1" data-icon="mdi:share-variant-outline"></span></h6>
                   &nbsp;<p> {{ keep.shares }}</p>
@@ -53,7 +53,7 @@
                   <!-- <div class="col-3 justify-content-start hoverable"> -->
                   <!-- v-if="state.user.isAuthenticated && state.account.id == keep.creatorId"> -->
                   <div class="userdisplay">
-                    <div class="col-2">
+                    <div class="col-2 col-md-2">
                       <h5 class="hoverable bottom-row m-0">
                         <form>
                           <select title="Add to Vault" @change.prevent="addToVault($event.target.value)" class="btn btn-primary " style="width:140px">
@@ -67,8 +67,8 @@
                         </form>
                       </h5>
                     </div>
-                    <div class="col-2 bottom-row-trash justify-content-right">
-                      <h5 class=" hoverable" @click="destroy($event.target.value)">
+                    <div class="col-2 bottom-row-trash justify-content-right" v-if="state.user.isAuthenticated && state.account.id == keep.creatorId">
+                      <h5 class="hoverable" @click="destroy($event.target.value)">
                         🗑
                       </h5>
                     </div>
@@ -108,21 +108,20 @@ export default {
   setup(props) {
     const route = useRoute()
     const loading = ref(true)
-    onMounted(async() => {
-      try {
-        keepsService.GetById(props.keep.id)
-        // if (state.account) { await profilesService.GetVaultsByProfileId(AppState.account.Id) }
-        loading.value = false
-      } catch (error) {
-        Pop.toast(error, 'error')
-      }
-    })
+    // onMounted(async() => {
+    //   try {
+    //        loading.value = false
+    //   } catch (error) {
+    //     Pop.toast(error, 'error')
+    //   }
+    // })
     const state = reactive({
       newkeep: {
         keepId: props.keep.id
       },
       user: computed(() => AppState.user),
-      activeKeep: computed(() => state.keep),
+      activeKeep: computed(() => AppState.activeKeep),
+      // keep: computed(() => AppState.activeKeep),
       account: computed(() => AppState.account),
       myVaults: computed(() => AppState.myVaults),
       newVaultKeep: {}
@@ -141,7 +140,9 @@ export default {
           Pop.toast(error, 'error')
         }
       },
-      // Need to add to VAult
+      async fetchkeep() {
+        await keepsService.GetById(props.keep.id)
+      }, // Need to add to VAult
       async addToVault(vault) {
         try {
           state.newVaultkeep = {}
@@ -150,6 +151,8 @@ export default {
           // state.newVaultKeep.keepId = AppState.account.id
           if (state.newVaultKeep.VaultId) {
             await keepsService.addKeeptoVault(state.newVaultKeep)
+            state.activeKeep.keeps++
+            // TODO props.keep.keeps++
             Pop.toast('Keep added  to your Vault', 'success')
           }
           $('#keep-modal-' + props.keep.id).modal('toggle')

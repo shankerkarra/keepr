@@ -1,5 +1,5 @@
 <template>
-  <div class="card rounded elevation-1 bg-light my-3 p-3 text-left selectable">
+  <div class="card rounded col-3 elevation-1 bg-light m-0 p-3 text-left selectable">
     <!-- <div class=""> -->
     <router-link :to="{ name: 'Vault', params: {id: vault.id } }" @click.stop="">
       <h3 class="m-0">

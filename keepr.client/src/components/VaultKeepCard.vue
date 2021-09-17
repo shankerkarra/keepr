@@ -1,11 +1,11 @@
 <template>
-  <div class="card img-fluid m-1 px-1 py-1 Text-white" style="width: 19rem;">
+  <div class="card img-fluid m-0 px-1 py-1 Text-white" style="width: 19rem;">
     <img class="cover-img" :src="keep.img" alt="Card image">
     <div class="card-img-overlay">
       <div class="bottom-left">
         <h4 class="py-2 px-2">
           {{ keep.name }}
-          <!-- {{ keep }}
+          <!-- {{ account }}
           {{ activeVault }} -->
         </h4>
       </div>
@@ -13,10 +13,12 @@
     <div class="bottom-right py-3 justify-content-right">
       <img class="rounded-pill" :src="keep.creator.picture" alt="" srcset="" height="40">
     </div>
-    <div class="top-right py-3 justify-content-right">
-      <h5 class="pt-3 pb-2 hoverable" @click="destory(keep.vaultKeepId, activeVault.id)">
-        🗑
-      </h5>
+    <div v-if="account.id != null">
+      <div class="top-right py-3 justify-content-right" v-if="activeVault.creatorId === account.id">
+        <h5 class="pt-3 pb-2 hoverable" @click="destory(keep.vaultKeepId, activeVault.id)">
+          🗑
+        </h5>
+      </div>
     </div>
   </div>
 </template>
@@ -36,6 +38,7 @@ export default {
   },
   setup(props) {
     return {
+      user: computed(() => AppState.user),
       account: computed(() => AppState.account),
       activeVault: computed(() => AppState.activeVault),
       async destory(vaultKeepId, vaultId) {

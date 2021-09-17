@@ -96,6 +96,7 @@ export default {
           state.newVault.creatorId = AppState.account.id
           await vaultsService.create(state.newVault, AppState.account.id)
           state.newVault = { creatorId: props.profile.Id, isPrivate: false }
+          Pop.toast('Added Vault', 'success')
           $('#createvault-modal').modal('hide')
         } catch (error) {
           Pop.toast(error, 'error')

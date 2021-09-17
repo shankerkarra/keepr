@@ -6,30 +6,33 @@
       </div>
       <div v-else class="col">
         <h3>
-          {{ activeVault.name }} - {{ activeVault.id }} <h3 />
+          {{ activeVault.name }} - {{ activeVault.id }}
+          <!-- {{ activeVault }} -->
+          <h3 />
         </h3>
-        <div v-if="keepsbyvault.length != 0">
+        <div v-if="activeVault.creatorId === account.id">
           <div class="col-2 justify-content-center">
             <h5 class="pt-2 hoverable" @click="destroy($event.target.value)">
               🗑
             </h5>
           </div>
-          <div class="row">
-            <div v-if="loading" class="col-3 text-center">
-              <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
-            </div>
-            <div v-else class="col m-3">
-              <VaultKeepCard v-for="k in keepsbyvault" :key="k.id" :keep="k" />
-            </div>
-          </div>
         </div>
-        <div v-else>
+        <div class="row">
+          <div v-if="loading" class="col-3 text-center">
+            <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+          </div>
+          <!-- <div v-else class="col m-3"> -->
+          <VaultKeepCard v-for="k in keepsbyvault" :key="k.id" :keep="k" />
+          <!-- </div> -->
+        </div>
+        <!-- </div> -->
+        <!-- <div v-else> -->
         <!-- <div class="row m-4">
           <h3>
             No Keeps to display.
           </h3>
         </div> -->
-        </div>
+        <!-- </div> -->
       </div>
     </div>
   </div>
@@ -54,10 +57,12 @@ export default {
       try {
         await vaultsService.GetById(route.params.id)
         await keepsService.getKeepsByVaultId(AppState.activeVault.id)
-        if (AppState.KeepsByVault === 0) {
-          emptyVault.value = false
+        if (AppState.activeVault.creatorId !== AppState.account.id) {
+          if (AppState.activeVault.isPrivate === true) {
+            emptyVault.value = false
+          }
         }
-        if (emptyVault.value) { router.push({ name: 'Home' }) }
+        if (!emptyVault.value) { router.push({ name: 'Home' }) }
         loading.value = false
       } catch (error) {
         Pop.toast(error, 'error')

@@ -40,7 +40,7 @@ namespace keepr.Repositories
       string sql = @"
       UPDATE keep
       SET
-        views = @Views
+        views = @Views +1
       WHERE id = @Id
       ;";
       _db.Execute(sql, keep);

@@ -1,5 +1,5 @@
 <template>
-  <div class="card img-fluid m-1 px-1 py-1 text-white" style="width: 19rem;" data-toggle="modal" :data-target="'#keep-modal-'+keep.id">
+  <div class="card m-1 px-1 py-1 text-white" style="width: 19rem;" data-toggle="modal" :data-target="'#keep-modal-'+keep.id" @click="fetchkeep()">
     <img class="cover-img" :src="keep.img" alt="Card image">
     <div class="card-img-overlay">
       <div class="bottom-left">
@@ -20,6 +20,7 @@
 <script>
 import { computed } from '@vue/runtime-core'
 import { AppState } from '../AppState'
+import { keepsService } from '../services/KeepsService'
 
 export default {
   props: {
@@ -30,7 +31,10 @@ export default {
   },
   setup(props) {
     return {
-      account: computed(() => AppState.account)
+      account: computed(() => AppState.account),
+      async fetchkeep() {
+        await keepsService.GetById(props.keep)
+      }
     }
   }
 }
@@ -38,7 +42,7 @@ export default {
 
 <style lang="scss" scoped>
 .cover-img {
-  height: 200px;
+  // min-height: 200px;
   width: 250px;
   object-fit:cover;
   width:100%;
