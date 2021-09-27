@@ -9,7 +9,7 @@
   >
     <div class="modal-dialog modal-dialog-centered modal-lg customClass" role="document">
       <div class="modal-content">
-        <div class="modal-body container">
+        <div class="modal-body container-fluid">
           <div class="row">
             <div class="col-12">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -18,10 +18,10 @@
             </div>
           </div>
           <div class="row">
-            <div class="col col-md-6 justify-content-left p-0">
-              <img class="cover-img m-1" w-100 h-100 :src="keep.img" alt="Card image">
+            <div class="col col-md-5 justify-content-center primary p-0">
+              <img class="cover-img m-1 p-0" :src="keep.img" alt="Card image">
             </div>
-            <div class="col col-md-6 p-0" v-if="state.activeKeep.id != null">
+            <div class="col col-md-7 secondary p-0" v-if="state.activeKeep.id != null">
               <div class="row justify-align-content">
                 <div class="col-12 p-1 m-1 d-flex justify-content-center">
                   <h6><span class="iconify m-1" data-icon="mdi:eye"></span></h6>
@@ -56,7 +56,7 @@
                     <div class="col-2 col-md-2">
                       <h5 class="hoverable bottom-row m-0">
                         <form>
-                          <select title="Add to Vault" @change.prevent="addToVault($event.target.value)" class="btn btn-primary " style="width:140px">
+                          <select title="Add to Vault" @change.prevent="addToVault($event.target.value)" class="btn btn-primary" style="width:140px">
                             <option value="" selected disabled hidden>
                               Add to Vault
                             </option>
@@ -75,9 +75,7 @@
                   </div></span>
                 <!-- </div> -->
                 <div class="col-6 offset-8 bottom-right">
-                  <!-- <div class="bottom-right"> -->
                   <img class="rounded-pill" :src="keep.creator.picture" alt="" srcset="" height="40"> {{ keep.creator.name }}
-                  <!-- </div> -->
                 </div>
               </div>
             </div>
@@ -167,17 +165,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// .customClass{
-//    width: 400px;
-//    height:400px;// custom width
-// }
 .emptyspace{
-  min-height: 15vh;
+  min-height: 18vh;
 }
 .cover-img {
-  object-fit:cover;
-  width: 90%;
-  height: 100%;
+  object-fit:inherit;
+  width: 300px;
+  height: 300px;
   // max-height: 45vh;
  }
  .hoverable{
@@ -186,20 +180,31 @@ export default {
  /* Bottom right text */
 .bottom-right {
   position: absolute;
-  bottom: 30px;
-  right: 0px;
+  bottom: 25px;
+  right: -10px;
 }
 .bottom-row {
-   bottom: 20px;
-  left: 10px;
+   bottom: 25px;
+  left: 0px;
 }
 .bottom-row-trash {
    bottom: 25px;
-   left: 165px;
+   left: 150px;
 }
  .modal-dialog{
-   min-width: 375px;
-   max-width: 750px;
+   min-width: 250px;
+   max-width: 850px;
  }
+
+ @media screen and (max-width: 1060px) {
+    #primary { width:67%; }
+    #secondary { width:30%; margin-left:3%;}
+}
+
+/* Tabled Portrait */
+@media screen and (max-width: 350px) {
+    #primary { width:100%; }
+    #secondary { width:100%; margin:0; border:none; }
+}
 
  </style>
