@@ -18,10 +18,10 @@
             </div>
           </div>
           <div class="row">
-            <div class="col col-md-5 justify-content-center primary p-0">
+            <div class="col-md-6 justify-content-center primary p-0">
               <img class="cover-img m-1 p-0" :src="keep.img" alt="Card image">
             </div>
-            <div class="col col-md-7 secondary p-0" v-if="state.activeKeep.id != null">
+            <div class="col-md-6 secondary p-0" v-if="state.activeKeep.id != null">
               <div class="row justify-align-content">
                 <div class="col-12 p-1 m-1 d-flex justify-content-center">
                   <h6><span class="iconify m-1" data-icon="mdi:eye"></span></h6>
@@ -181,30 +181,26 @@ export default {
 .bottom-right {
   position: absolute;
   bottom: 25px;
-  right: -10px;
+  right: 1px;
 }
 .bottom-row {
    bottom: 25px;
-  left: 0px;
+  left:-5px;
 }
 .bottom-row-trash {
    bottom: 25px;
    left: 150px;
 }
  .modal-dialog{
-   min-width: 250px;
-   max-width: 850px;
+   min-width: 450px;
+   max-width: 750px;
  }
 
- @media screen and (max-width: 1060px) {
-    #primary { width:67%; }
-    #secondary { width:30%; margin-left:3%;}
-}
-
-/* Tabled Portrait */
-@media screen and (max-width: 350px) {
-    #primary { width:100%; }
-    #secondary { width:100%; margin:0; border:none; }
-}
+// @media all and (max-width: 420px) {
+//   primary, secondary {
+//     float: none;
+//     width: auto;
+//   }
+// }
 
  </style>
